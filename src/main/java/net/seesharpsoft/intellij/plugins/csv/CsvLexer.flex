@@ -3,7 +3,7 @@ package net.seesharpsoft.intellij.plugins.csv;
 import com.intellij.psi.tree.IElementType;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvTypes;
 import com.intellij.psi.TokenType;
-import com.intellij.lexer.FlexLexer;import org.intellij.grammar.livePreview.LivePreviewElementType;
+import com.intellij.lexer.FlexLexer;
 
 import java.util.regex.Pattern;
 

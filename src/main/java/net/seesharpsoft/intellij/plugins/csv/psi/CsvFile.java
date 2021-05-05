@@ -8,10 +8,8 @@ import com.intellij.psi.PsiElement;
 import com.intellij.util.FileContentUtilCore;
 import net.seesharpsoft.intellij.plugins.csv.CsvColumnInfoMap;
 import net.seesharpsoft.intellij.plugins.csv.CsvHelper;
-import net.seesharpsoft.intellij.plugins.csv.settings.CsvEditorSettings;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -41,7 +39,7 @@ public class CsvFile extends PsiFileBase {
     public CsvFile(@NotNull FileViewProvider viewProvider, LanguageFileType fileType) {
         super(viewProvider, fileType.getLanguage());
         myFileType = fileType;
-        CsvEditorSettings.getInstance().addPropertyChangeListener(new CsvEditorSettingsPropertyChangeListener());
+        // leak CsvEditorSettings.getInstance().addPropertyChangeListener(new CsvEditorSettingsPropertyChangeListener());
     }
 
     public CsvColumnInfoMap<PsiElement> getColumnInfoMap() {
@@ -61,10 +59,5 @@ public class CsvFile extends PsiFileBase {
     @Override
     public String toString() {
         return String.format("%s File", myFileType.getName());
-    }
-
-    @Override
-    public Icon getIcon(int flags) {
-        return super.getIcon(flags);
     }
 }

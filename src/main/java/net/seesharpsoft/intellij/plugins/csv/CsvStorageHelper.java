@@ -1,10 +1,10 @@
 package net.seesharpsoft.intellij.plugins.csv;
 
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Key;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.util.PathUtil;
+import consulo.util.dataholder.Key;
 
 import java.util.regex.Pattern;
 

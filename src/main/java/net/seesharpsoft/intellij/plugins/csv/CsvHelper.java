@@ -15,6 +15,7 @@ import com.intellij.psi.impl.source.DummyHolderFactory;
 import com.intellij.psi.impl.source.tree.FileElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
+import consulo.lang.LanguageVersion;
 import net.seesharpsoft.intellij.lang.FileParserDefinition;
 import net.seesharpsoft.intellij.plugins.csv.components.CsvFileAttributes;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvField;
@@ -43,8 +44,9 @@ public final class CsvHelper {
         final FileElement fileElement = dummyHolder.getTreeElement();
         final FileParserDefinition parserDefinition = (FileParserDefinition) LanguageParserDefinitions.INSTANCE.forLanguage(CsvLanguage.INSTANCE);
         final Lexer lexer = parserDefinition.createLexer(psiFile);
-        final PsiBuilder psiBuilder = PsiBuilderFactory.getInstance().createBuilder(project, fileElement, lexer, CsvLanguage.INSTANCE, text);
-        final ASTNode node = parserDefinition.createParser(project).parse(type, psiBuilder);
+        LanguageVersion version = psiFile.getLanguageVersion();
+        final PsiBuilder psiBuilder = PsiBuilderFactory.getInstance().createBuilder(project, fileElement, lexer, CsvLanguage.INSTANCE, version, text);
+        final ASTNode node = parserDefinition.createParser(version).parse(type, psiBuilder, version);
         fileElement.rawAddChildren((com.intellij.psi.impl.source.tree.TreeElement) node);
         return node.getPsi();
     }

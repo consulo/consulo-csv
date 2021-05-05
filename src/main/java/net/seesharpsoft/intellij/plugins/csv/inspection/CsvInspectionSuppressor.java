@@ -1,8 +1,6 @@
 package net.seesharpsoft.intellij.plugins.csv.inspection;
 
-import com.intellij.codeInspection.InspectionProfileEntry;
 import com.intellij.codeInspection.InspectionSuppressor;
-import com.intellij.codeInspection.ProblematicWhitespaceInspection;
 import com.intellij.codeInspection.SuppressQuickFix;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
@@ -17,7 +15,7 @@ public class CsvInspectionSuppressor implements InspectionSuppressor {
 
     static {
         GENERAL_SUPPRESSED_INSPECTIONS = new HashSet<>();
-        GENERAL_SUPPRESSED_INSPECTIONS.add(InspectionProfileEntry.getShortName(ProblematicWhitespaceInspection.class.getSimpleName()));
+        // todo GENERAL_SUPPRESSED_INSPECTIONS.add(InspectionProfileEntry.getShortName(ProblematicWhitespaceInspection.class.getSimpleName()));
     }
 
     @Override

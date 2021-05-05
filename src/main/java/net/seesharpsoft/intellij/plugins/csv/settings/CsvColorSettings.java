@@ -8,15 +8,13 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.options.colors.AttributesDescriptor;
 import com.intellij.openapi.options.colors.ColorDescriptor;
 import com.intellij.openapi.options.colors.ColorSettingsPage;
-import com.intellij.openapi.util.Key;
-import com.intellij.openapi.util.UserDataHolder;
+import consulo.util.dataholder.Key;
+import consulo.util.dataholder.UserDataHolder;
 import net.seesharpsoft.UnhandledSwitchCaseException;
-import net.seesharpsoft.intellij.plugins.csv.CsvIconProvider;
 import net.seesharpsoft.intellij.plugins.csv.highlighter.CsvSyntaxHighlighter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -81,12 +79,6 @@ public class CsvColorSettings implements ColorSettingsPage {
             }
         }
         return maxIndex;
-    }
-
-    @Nullable
-    @Override
-    public Icon getIcon() {
-        return CsvIconProvider.FILE;
     }
 
     @NotNull

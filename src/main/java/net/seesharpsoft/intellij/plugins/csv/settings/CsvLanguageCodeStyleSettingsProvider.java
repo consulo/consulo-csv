@@ -78,7 +78,7 @@ public class CsvLanguageCodeStyleSettingsProvider extends LanguageCodeStyleSetti
     }
 
     protected void customizeDefaults(@NotNull CommonCodeStyleSettings commonSettings, @NotNull CommonCodeStyleSettings.IndentOptions indentOptions) {
-        super.customizeDefaults(commonSettings, indentOptions);
+        // todo unused ? super.customizeDefaults(commonSettings, indentOptions);
         indentOptions.TAB_SIZE = 1;
         indentOptions.INDENT_SIZE = 1;
         indentOptions.USE_TAB_CHARACTER = true;

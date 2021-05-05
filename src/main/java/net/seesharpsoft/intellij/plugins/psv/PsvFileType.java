@@ -1,16 +1,15 @@
 package net.seesharpsoft.intellij.plugins.psv;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
-import com.intellij.openapi.util.IconLoader;
+import consulo.csv.icon.CsvIconGroup;
+import consulo.ui.image.Image;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
 
 public final class PsvFileType extends LanguageFileType {
     public static final PsvFileType INSTANCE = new PsvFileType();
 
-    public static final Icon ICON = IconLoader.getIcon("/media/icons/psv-icon.png", PsvFileType.class);
+    public static final Image ICON = CsvIconGroup.psv_icon();
 
     private PsvFileType() {
         super(PsvLanguage.INSTANCE);
@@ -36,7 +35,7 @@ public final class PsvFileType extends LanguageFileType {
 
     @Nullable
     @Override
-    public Icon getIcon() {
+    public Image getIcon() {
         return ICON;
     }
 }

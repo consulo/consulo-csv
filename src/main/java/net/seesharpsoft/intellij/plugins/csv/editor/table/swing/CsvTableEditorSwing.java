@@ -8,6 +8,8 @@ import com.intellij.psi.PsiElement;
 import com.intellij.ui.components.labels.LinkLabel;
 import com.intellij.ui.table.JBTable;
 import com.intellij.util.ArrayUtil;
+import consulo.awt.TargetAWT;
+import consulo.platform.base.icon.PlatformIconGroup;
 import net.seesharpsoft.intellij.plugins.csv.CsvColumnInfo;
 import net.seesharpsoft.intellij.plugins.csv.CsvColumnInfoMap;
 import net.seesharpsoft.intellij.plugins.csv.CsvHelper;
@@ -132,8 +134,8 @@ public class CsvTableEditorSwing extends CsvTableEditor implements TableDataChan
         tblEditor.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tblEditor.setShowColumns(true);
         tblEditor.setFont(getFont());
-        tblEditor.setBackground(editorColorsScheme.getDefaultBackground());
-        tblEditor.setForeground(editorColorsScheme.getDefaultForeground());
+        tblEditor.setBackground(TargetAWT.to(editorColorsScheme.getDefaultBackground()));
+        tblEditor.setForeground(TargetAWT.to(editorColorsScheme.getDefaultForeground()));
         setTableRowHeight(0);
 
         tblEditor.getColumnModel().addColumnModelListener(tableEditorListener);
@@ -157,6 +159,10 @@ public class CsvTableEditorSwing extends CsvTableEditor implements TableDataChan
         applyEditorState(getFileEditorState());
 
         rowHeadersTable = TableRowUtilities.addNumberColumn(tblEditor, 1);
+
+        btnUndo.setIcon(TargetAWT.to(PlatformIconGroup.actionsUndo()));
+        btnRedo.setIcon(TargetAWT.to(PlatformIconGroup.actionsRedo()));
+        btnCloseInfoPanel.setIcon(TargetAWT.to(PlatformIconGroup.actionsClose()));
     }
 
     protected void applyTableChangeListener() {

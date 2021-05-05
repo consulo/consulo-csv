@@ -1,10 +1,10 @@
-<idea-plugin>
+<consulo-plugin>
     <id>net.seesharpsoft.intellij.plugins.csv</id>
     <name>CSV Plugin</name>
     <vendor url="https://github.com/SeeSharpSoft/intellij-csv-validator">
         Martin Sommer
     </vendor>
-
+    <version>SNAPSHOT</version>
     <description><![CDATA[
 
         <p>Lightweight plugin for editing CSV/TSV/PSV files with a flexible Table Editor, syntax validation, structure highlighting, customizable coloring, new intentions and helpful inspections.</p><br>
@@ -42,10 +42,6 @@
         <br><br><br>
         </p>
         <p>
-        <span style="color: #555555">
-            <b>IntelliJ IDEA Ultimate/PhpStorm/DataGrip/etc.:</b> The plugin is fully compatible with the <em>'Edit as Table...'</em> functionality.<br><br>
-        </span>
-        </p>
     ]]></description>
 
     <change-notes><![CDATA[
@@ -61,18 +57,20 @@ HOTFIX: Exception in CSV plugin when using with remote SSH host #279
     ]]>
     </change-notes>
 
+    <depends optional="true">com.intellij.spellchecker</depends>
+
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="193.5233.102" />
+    <!--<idea-version since-build="193.5233.102" />-->
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
-    <depends>com.intellij.modules.lang</depends>
+    <!--<depends>com.intellij.modules.lang</depends>-->
 
     <extensions defaultExtensionNs="com.intellij">
         <fileType name="CSV" language="csv" implementationClass="net.seesharpsoft.intellij.plugins.csv.CsvFileType" extensions="csv" fieldName="INSTANCE"/>
         <fileType name="TSV" language="tsv" implementationClass="net.seesharpsoft.intellij.plugins.tsv.TsvFileType" extensions="tsv;tab" fieldName="INSTANCE"/>
         <fileType name="PSV" language="psv" implementationClass="net.seesharpsoft.intellij.plugins.psv.PsvFileType" extensions="psv" fieldName="INSTANCE"/>
-        <fileTypeOverrider implementation="net.seesharpsoft.intellij.plugins.csv.CsvFileTypeOverrider" />
+        <!--<fileTypeOverrider implementation="net.seesharpsoft.intellij.plugins.csv.CsvFileTypeOverrider" />-->
 
         <lang.parserDefinition language="csv"
                                implementationClass="net.seesharpsoft.intellij.plugins.csv.CsvParserDefinition"/>
@@ -97,7 +95,8 @@ HOTFIX: Exception in CSV plugin when using with remote SSH host #279
                 serviceImplementation="net.seesharpsoft.intellij.plugins.csv.settings.CsvEditorSettings"/>
         <projectService serviceImplementation="net.seesharpsoft.intellij.plugins.csv.components.CsvFileAttributes"/>
 
-        <editorOptionsProvider instance="net.seesharpsoft.intellij.plugins.csv.settings.CsvEditorSettingsProvider"/>
+        <applicationConfigurable id="Csv.Editor.Settings" parentId="editor.preferences.appearance" displayName="CSV/TSV/PSV"  instance="net.seesharpsoft.intellij.plugins.csv.settings.CsvEditorSettingsProvider"/>
+        
         <fileEditorProvider implementation="net.seesharpsoft.intellij.plugins.csv.editor.CsvFileEditorProvider"/>
         <fileEditorProvider implementation="net.seesharpsoft.intellij.plugins.csv.editor.table.CsvTableEditorProvider"/>
 
@@ -115,7 +114,7 @@ HOTFIX: Exception in CSV plugin when using with remote SSH host #279
 
         <lang.psiStructureViewFactory language="csv"
                                       implementationClass="net.seesharpsoft.intellij.plugins.csv.structureview.CsvStructureViewFactory"/>
-        <iconProvider implementation="net.seesharpsoft.intellij.plugins.csv.CsvIconProvider"/>
+        <iconDescriptorUpdater implementation="net.seesharpsoft.intellij.plugins.csv.CsvIconProvider"/>
 
         <localInspection
                 language="csv"
@@ -163,7 +162,7 @@ HOTFIX: Exception in CSV plugin when using with remote SSH host #279
         <todoIndexer implementationClass="net.seesharpsoft.intellij.plugins.csv.CsvTodoIndexer" filetype="TSV" />
         <todoIndexer implementationClass="net.seesharpsoft.intellij.plugins.csv.CsvTodoIndexer" filetype="PSV" />
 
-        <postStartupActivity implementation="net.seesharpsoft.intellij.plugins.csv.CsvPlugin" />
+        <!--<postStartupActivity implementation="net.seesharpsoft.intellij.plugins.csv.CsvPlugin" /> -->
 
         <lang.commenter implementationClass="net.seesharpsoft.intellij.plugins.csv.CsvCommenter" language="csv" />
     </extensions>
@@ -182,21 +181,21 @@ HOTFIX: Exception in CSV plugin when using with remote SSH host #279
         <action class="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddColumnBefore"
                 id="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddColumnBefore"
                 text="New column before (Ctrl+Left)"
-                icon="/media/icons/add-column-before.png"
+                icon="consulo.csv.CsvIconGroup@add_column_before"
         >
             <add-to-group group-id="CsvTableEditorColumnContextMenu" anchor="first" />
         </action>
         <action class="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddColumnAfter"
                 id="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddColumnAfter"
                 text="New column after (Ctrl+Right)"
-                icon="/media/icons/add-column.png"
+                icon="consulo.csv.CsvIconGroup@add_column"
         >
             <add-to-group group-id="CsvTableEditorColumnContextMenu" relative-to-action="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddColumnBefore" anchor="after" />
         </action>
         <action class="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$DeleteSelectedColumns"
                 id="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$DeleteSelectedColumns"
                 text="Delete selected column (Ctrl+Shift+Del)"
-                icon="/media/icons/remove-column.png"
+                icon="consulo.csv.CsvIconGroup@remove_column"
         >
             <add-to-group group-id="CsvTableEditorColumnContextMenu" relative-to-action="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddColumnAfter" anchor="after" />
         </action>
@@ -204,21 +203,21 @@ HOTFIX: Exception in CSV plugin when using with remote SSH host #279
         <action class="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddRowBefore"
                 id="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddRowBefore"
                 text="New row before (Ctrl+Up)"
-                icon="/media/icons/add-row-before.png"
+                icon="consulo.csv.CsvIconGroup@add_row_before"
         >
             <add-to-group group-id="CsvTableEditorRowContextMenu" anchor="first" />
         </action>
         <action class="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddRowAfter"
                 id="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddRowAfter"
                 text="New row after (Ctrl+Down)"
-                icon="/media/icons/add-row.png"
+                icon="consulo.csv.CsvIconGroup@add_row"
         >
             <add-to-group group-id="CsvTableEditorRowContextMenu" relative-to-action="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddRowBefore" anchor="after" />
         </action>
         <action class="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$DeleteSelectedRows"
                 id="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$DeleteSelectedRows"
                 text="Delete selected rows (Ctrl+Del)"
-                icon="/media/icons/remove-row.png"
+                icon="consulo.csv.CsvIconGroup@remove_row"
         >
             <add-to-group group-id="CsvTableEditorRowContextMenu" relative-to-action="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddRowAfter" anchor="after" />
         </action>
@@ -226,7 +225,7 @@ HOTFIX: Exception in CSV plugin when using with remote SSH host #279
         <action class="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AdjustColumnWidths"
                 id="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AdjustColumnWidths"
                 text="Adjust column widths"
-                icon="/media/icons/adjust-column-width.png"
+                icon="consulo.csv.CsvIconGroup@adjust_column_width"
         >
             <add-to-group group-id="CsvTableEditorColumnContextMenu" />
             <add-to-group group-id="CsvTableEditorRowContextMenu" />
@@ -234,7 +233,7 @@ HOTFIX: Exception in CSV plugin when using with remote SSH host #279
         <action class="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$ResetColumnWidths"
                 id="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$ResetColumnWidths"
                 text="Reset column widths to default"
-                icon="/media/icons/reset-column-width.png"
+                icon="consulo.csv.CsvIconGroup@reset_column_width"
         >
             <add-to-group group-id="CsvTableEditorColumnContextMenu" relative-to-action="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AdjustColumnWidths" anchor="after" />
             <add-to-group group-id="CsvTableEditorRowContextMenu" relative-to-action="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AdjustColumnWidths" anchor="after" />
@@ -246,7 +245,7 @@ HOTFIX: Exception in CSV plugin when using with remote SSH host #279
                description="CSV Separator"
                popup="true"
                keep-content="true"
-               icon="/media/icons/csv-icon.png"
+               icon="consulo.csv.CsvIconGroup@csv_icon"
         >
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
             <add-to-group group-id="CsvTableEditorColumnContextMenu" anchor="last"/>
@@ -259,7 +258,7 @@ HOTFIX: Exception in CSV plugin when using with remote SSH host #279
                description="CSV Escape Character"
                popup="true"
                keep-content="true"
-               icon="/media/icons/csv-icon.png"
+               icon="consulo.csv.CsvIconGroup@csv_icon"
         >
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
             <add-to-group group-id="CsvTableEditorColumnContextMenu" anchor="last"/>
@@ -268,4 +267,4 @@ HOTFIX: Exception in CSV plugin when using with remote SSH host #279
 
     </actions>
 
-</idea-plugin>
+</consulo-plugin>

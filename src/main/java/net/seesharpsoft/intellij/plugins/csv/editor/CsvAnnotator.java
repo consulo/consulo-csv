@@ -2,12 +2,13 @@ package net.seesharpsoft.intellij.plugins.csv.editor;
 
 import com.intellij.lang.annotation.*;
 import com.intellij.openapi.editor.markup.TextAttributes;
-import com.intellij.openapi.util.Key;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.openapi.vcs.ui.FontUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.xml.util.XmlStringUtil;
+import consulo.awt.TargetAWT;
+import consulo.util.dataholder.Key;
 import net.seesharpsoft.intellij.plugins.csv.CsvColumnInfo;
 import net.seesharpsoft.intellij.plugins.csv.CsvHelper;
 import net.seesharpsoft.intellij.plugins.csv.CsvValueSeparator;
@@ -65,7 +66,7 @@ public class CsvAnnotator implements Annotator {
                 textRange = TextRange.from(textRange.getStartOffset() - 1, 1);
             }
 
-            final Annotation annotation = holder.createAnnotation(CSV_COLUMN_INFO_SEVERITY, textRange, message, tooltip);
+            final Annotation annotation = holder.createAnnotation(CSV_COLUMN_INFO_SEVERITY, textRange, message/*, tooltip*/);
             annotation.setEnforcedTextAttributes(
                     CsvEditorSettings.getInstance().getValueColoring() == CsvEditorSettings.ValueColoring.RAINBOW ?
                             CsvColorSettings.getTextAttributesOfColumn(columnInfo.getColumnIndex(), holder.getCurrentAnnotationSession()) :
@@ -91,7 +92,7 @@ public class CsvAnnotator implements Annotator {
                 CsvValueSeparator separator = CsvHelper.getValueSeparator(csvFile);
                 if (CsvEditorSettings.getInstance().isHighlightTabSeparator() && separator.equals(CsvValueSeparator.TAB)) {
                     textAttributes = new TextAttributes(null,
-                            CsvEditorSettings.getInstance().getTabHighlightColor(),
+                            TargetAWT.from(CsvEditorSettings.getInstance().getTabHighlightColor()),
                             null, null, 0);
                     holder.getCurrentAnnotationSession().putUserData(TAB_SEPARATOR_HIGHLIGHT_COLOR_KEY, textAttributes);
                     holder.getCurrentAnnotationSession().putUserData(TAB_SEPARATOR_HIGHLIGHT_COLOR_DETERMINED_KEY, Boolean.TRUE);

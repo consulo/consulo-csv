@@ -1,33 +1,28 @@
 package net.seesharpsoft.intellij.plugins.csv;
 
-import com.intellij.ide.IconProvider;
-import com.intellij.openapi.util.IconLoader;
 import com.intellij.psi.PsiElement;
+import consulo.annotation.access.RequiredReadAction;
+import consulo.csv.icon.CsvIconGroup;
+import consulo.ide.IconDescriptor;
+import consulo.ide.IconDescriptorUpdater;
+import consulo.ui.image.Image;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvField;
-import net.seesharpsoft.intellij.plugins.csv.psi.CsvFile;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import javax.swing.*;
+import javax.annotation.Nonnull;
 
-public class CsvIconProvider extends IconProvider {
+public class CsvIconProvider implements IconDescriptorUpdater {
 
-    public static final Icon FILE = IconLoader.getIcon("/media/icons/csv-icon.png", CsvIconProvider.class);
+    public static final Image FILE = CsvIconGroup.csv_icon();
 
-    public static final Icon HEADER = IconLoader.getIcon("/media/icons/csv-header-icon.png", CsvIconProvider.class);
+    public static final Image HEADER = CsvIconGroup.csv_header_icon();
 
-    public static final Icon FIELD = IconLoader.getIcon("/media/icons/csv-field-icon.png", CsvIconProvider.class);
+    public static final Image FIELD = CsvIconGroup.csv_field_icon();
 
-    @Nullable
+    @RequiredReadAction
     @Override
-    public Icon getIcon(@NotNull PsiElement element, int flags) {
+    public void updateIcon(@Nonnull IconDescriptor iconDescriptor, @Nonnull PsiElement element, int flags) {
         if (element instanceof CsvField) {
-            return FIELD;
+            iconDescriptor.setMainIcon(FIELD);
         }
-        if (element instanceof CsvFile) {
-            return ((CsvFile) element).getFileType().getIcon();
-        }
-
-        return null;
     }
 }

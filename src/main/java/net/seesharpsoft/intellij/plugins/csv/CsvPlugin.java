@@ -1,16 +1,13 @@
 package net.seesharpsoft.intellij.plugins.csv;
 
-import com.intellij.ide.actions.ShowSettingsUtilImpl;
-import com.intellij.ide.plugins.IdeaPluginDescriptor;
-import com.intellij.ide.plugins.PluginManagerCore;
 import com.intellij.notification.*;
-import com.intellij.openapi.extensions.PluginId;
-import com.intellij.openapi.options.ShowSettingsUtil;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.startup.StartupActivity;
+import consulo.container.plugin.PluginDescriptor;
+import consulo.container.plugin.PluginManager;
 import net.seesharpsoft.intellij.plugins.csv.components.CsvFileAttributes;
 import net.seesharpsoft.intellij.plugins.csv.settings.CsvEditorSettings;
 import net.seesharpsoft.intellij.plugins.csv.settings.CsvEditorSettingsProvider;
@@ -23,8 +20,8 @@ import java.net.URI;
 
 public class CsvPlugin implements StartupActivity, StartupActivity.DumbAware, StartupActivity.Background {
 
-    protected static IdeaPluginDescriptor getPluginDescriptor() {
-        return PluginManagerCore.getPlugin(PluginId.getId("net.seesharpsoft.intellij.plugins.csv"));
+    protected static PluginDescriptor getPluginDescriptor() {
+        return PluginManager.getPlugin(CsvPlugin.class);
     }
 
     protected static String getVersion() {
@@ -37,7 +34,7 @@ public class CsvPlugin implements StartupActivity, StartupActivity.DumbAware, St
 
     private static void openLink(Project project, String link) {
         if (!project.isDisposed() && link.startsWith("#")) {
-            ((ShowSettingsUtilImpl)ShowSettingsUtil.getInstance()).showSettingsDialog(project, link.substring(1), null);
+            //((ShowSettingsUtilImpl)ShowSettingsUtil.getInstance()).showSettingsDialog(project, link.substring(1), null);
         }
         if (Desktop.isDesktopSupported()) {
             Desktop desktop = Desktop.getDesktop();

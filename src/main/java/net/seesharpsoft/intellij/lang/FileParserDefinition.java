@@ -10,10 +10,10 @@ import com.intellij.psi.PsiFile;
  */
 public interface FileParserDefinition extends ParserDefinition {
     default Lexer createLexer(PsiFile file) {
-        return createLexer(file.getProject());
+        return createLexer(file.getLanguageVersion());
     }
 
     default PsiParser createParser(PsiFile file) {
-        return createParser(file.getProject());
+        return createParser(file.getLanguageVersion());
     }
 }

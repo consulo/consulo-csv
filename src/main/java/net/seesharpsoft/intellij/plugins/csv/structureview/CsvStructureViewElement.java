@@ -8,16 +8,17 @@ import com.intellij.navigation.NavigationItem;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiNamedElement;
+import consulo.ide.IconDescriptorUpdaters;
+import consulo.ui.image.Image;
 import net.seesharpsoft.intellij.plugins.csv.CsvColumnInfo;
 import net.seesharpsoft.intellij.plugins.csv.CsvColumnInfoMap;
 import net.seesharpsoft.intellij.plugins.csv.CsvHelper;
 import net.seesharpsoft.intellij.plugins.csv.CsvIconProvider;
-import net.seesharpsoft.intellij.plugins.csv.settings.CsvEditorSettings;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvFile;
+import net.seesharpsoft.intellij.plugins.csv.settings.CsvEditorSettings;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.*;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -81,8 +82,8 @@ public abstract class CsvStructureViewElement implements StructureViewTreeElemen
 
     @Nullable
     @Override
-    public Icon getIcon(boolean unused) {
-        return myElement.getIcon(ICON_FLAG_VISIBILITY);
+    public Image getIcon(boolean unused) {
+        return IconDescriptorUpdaters.getIcon(myElement, ICON_FLAG_VISIBILITY);
     }
 
     public static class File extends CsvStructureViewElement {
@@ -154,7 +155,7 @@ public abstract class CsvStructureViewElement implements StructureViewTreeElemen
 
         @Nullable
         @Override
-        public Icon getIcon(boolean unused) {
+        public Image getIcon(boolean unused) {
             return CsvIconProvider.HEADER;
         }
     }

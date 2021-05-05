@@ -1,16 +1,15 @@
 package net.seesharpsoft.intellij.plugins.tsv;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
-import com.intellij.openapi.util.IconLoader;
+import consulo.csv.icon.CsvIconGroup;
+import consulo.ui.image.Image;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
 
 public final class TsvFileType extends LanguageFileType {
     public static final TsvFileType INSTANCE = new TsvFileType();
 
-    public static final Icon ICON = IconLoader.getIcon("/media/icons/tsv-icon.png", TsvFileType.class);
+    public static final Image ICON = CsvIconGroup.tsv_icon();
 
     private TsvFileType() {
         super(TsvLanguage.INSTANCE);
@@ -36,7 +35,7 @@ public final class TsvFileType extends LanguageFileType {
 
     @Nullable
     @Override
-    public Icon getIcon() {
+    public Image getIcon() {
         return ICON;
     }
 }

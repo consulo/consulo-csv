@@ -18,7 +18,7 @@ import com.intellij.util.xmlb.annotations.OptionTag;
 import net.seesharpsoft.commons.collection.Pair;
 import net.seesharpsoft.intellij.plugins.csv.*;
 import net.seesharpsoft.intellij.plugins.csv.settings.CsvEditorSettings;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

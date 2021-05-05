@@ -5,9 +5,10 @@ import com.intellij.openapi.editor.colors.EditorColorsScheme;
 import com.intellij.openapi.editor.colors.EditorFontType;
 import com.intellij.openapi.editor.impl.FontFallbackIterator;
 import com.intellij.openapi.editor.markup.TextAttributes;
-import com.intellij.openapi.util.UserDataHolder;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.util.ui.UIUtil;
+import consulo.awt.TargetAWT;
+import consulo.util.dataholder.UserDataHolder;
 import net.seesharpsoft.intellij.plugins.csv.settings.CsvColorSettings;
 import org.jetbrains.annotations.NotNull;
 
@@ -52,12 +53,12 @@ public class MultiLineCellRenderer extends JBScrollPane implements TableCellRend
 
     private Color getColumnForegroundColor(int column, Color fallback) {
         TextAttributes textAttributes = getColumnTextAttributes(column);
-        return textAttributes == null || textAttributes.getForegroundColor() == null ? fallback : textAttributes.getForegroundColor();
+        return textAttributes == null || textAttributes.getForegroundColor() == null ? fallback : TargetAWT.to(textAttributes.getForegroundColor());
     }
 
     private Color getColumnBackgroundColor(int column, Color fallback) {
         TextAttributes textAttributes = getColumnTextAttributes(column);
-        return textAttributes == null || textAttributes.getBackgroundColor() == null ? fallback : textAttributes.getBackgroundColor();
+        return textAttributes == null || textAttributes.getBackgroundColor() == null ? fallback : TargetAWT.to(textAttributes.getBackgroundColor());
     }
 
     @Override

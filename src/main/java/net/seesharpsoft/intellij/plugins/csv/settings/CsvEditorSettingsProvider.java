@@ -1,6 +1,6 @@
 package net.seesharpsoft.intellij.plugins.csv.settings;
 
-import com.intellij.application.options.editor.EditorOptionsProvider;
+import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.ui.CheckBoxWithColorChooser;
@@ -16,7 +16,7 @@ import java.awt.*;
 import java.text.NumberFormat;
 import java.util.Objects;
 
-public class CsvEditorSettingsProvider implements EditorOptionsProvider {
+public class CsvEditorSettingsProvider implements Configurable {
 
     public static final String CSV_EDITOR_SETTINGS_ID = "Csv.Editor.Settings";
 
@@ -45,11 +45,11 @@ public class CsvEditorSettingsProvider implements EditorOptionsProvider {
     private JCheckBox cbHeaderRowFixed;
     private JCheckBox cbAutoDetectSeparator;
 
-    @NotNull
-    @Override
-    public String getId() {
-        return CSV_EDITOR_SETTINGS_ID;
-    }
+//    @NotNull
+//    @Override
+//    public String getId() {
+//        return CSV_EDITOR_SETTINGS_ID;
+//    }
 
     @Override
     public String getDisplayName() {
@@ -70,6 +70,10 @@ public class CsvEditorSettingsProvider implements EditorOptionsProvider {
     // ensure downward compatibility
     public boolean isModified(@NotNull JToggleButton toggleButton, boolean value) {
         return toggleButton.isSelected() != value;
+    }
+
+    public boolean isModified(@NotNull JTextField textField, String value) {
+        return !Objects.equals(textField.getText(), value);
     }
 
     @Override

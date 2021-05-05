@@ -1,6 +1,7 @@
 package net.seesharpsoft.intellij.plugins.csv;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
+import consulo.ui.image.Image;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,7 +34,7 @@ public final class CsvFileType extends LanguageFileType {
 
     @Nullable
     @Override
-    public Icon getIcon() {
+    public Image getIcon() {
         return CsvIconProvider.FILE;
     }
 }
