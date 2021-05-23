@@ -64,6 +64,7 @@
                         <goals>
                             <goal>generate-lexers</goal>
                             <goal>generate-icon</goal>
+                            <goal>generate-parsers</goal>
                         </goals>
                     </execution>
                     <execution>
