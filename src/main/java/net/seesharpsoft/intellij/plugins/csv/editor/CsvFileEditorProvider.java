@@ -2,11 +2,11 @@ package net.seesharpsoft.intellij.plugins.csv.editor;
 
 import com.intellij.openapi.editor.EditorSettings;
 import com.intellij.openapi.fileEditor.*;
-import com.intellij.openapi.fileEditor.impl.text.DesktopTextEditorProvider;
 import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.SingleRootFileViewProvider;
+import consulo.fileEditor.impl.text.TextEditorProvider;
 import net.seesharpsoft.intellij.plugins.csv.CsvHelper;
 import net.seesharpsoft.intellij.plugins.csv.settings.CsvEditorSettings;
 import org.jdom.Element;
@@ -55,17 +55,17 @@ public class CsvFileEditorProvider implements AsyncFileEditorProvider, DumbAware
 
     @Override
     public FileEditorState readState(@NotNull Element sourceElement, @NotNull Project project, @NotNull VirtualFile file) {
-        return DesktopTextEditorProvider.getInstance().readState(sourceElement, project, file);
+        return TextEditorProvider.getInstance().readState(sourceElement, project, file);
     }
 
     @Override
     public void writeState(@NotNull FileEditorState state, @NotNull Project project, @NotNull Element targetElement) {
-        DesktopTextEditorProvider.getInstance().writeState(state, project, targetElement);
+        TextEditorProvider.getInstance().writeState(state, project, targetElement);
     }
 
     @Override
     public void disposeEditor(@NotNull FileEditor editor) {
-        DesktopTextEditorProvider.getInstance().disposeEditor(editor);
+        TextEditorProvider.getInstance().disposeEditor(editor);
     }
 
     @NotNull
@@ -74,7 +74,7 @@ public class CsvFileEditorProvider implements AsyncFileEditorProvider, DumbAware
         return new Builder() {
             @Override
             public FileEditor build() {
-                TextEditor textEditor = (TextEditor) DesktopTextEditorProvider.getInstance().createEditor(project, virtualFile);
+                TextEditor textEditor = (TextEditor) TextEditorProvider.getInstance().createEditor(project, virtualFile);
                 applySettings(textEditor.getEditor().getSettings(), CsvEditorSettings.getInstance());
                 return textEditor;
             }
