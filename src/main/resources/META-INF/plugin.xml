@@ -56,6 +56,10 @@ HOTFIX: Exception in CSV plugin when using with remote SSH host #279
       </pre>
     ]]>
     </change-notes>
+    <tags>
+        <tag>editor.extension</tag>
+        <tag>markup.language</tag>
+    </tags>
 
     <depends optional="true">com.intellij.spellchecker</depends>
 
