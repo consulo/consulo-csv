@@ -2,6 +2,7 @@ package net.seesharpsoft.intellij.plugins.tsv;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import consulo.csv.icon.CsvIconGroup;
+import consulo.localize.LocalizeValue;
 import consulo.ui.image.Image;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -17,14 +18,14 @@ public final class TsvFileType extends LanguageFileType {
 
     @NotNull
     @Override
-    public String getName() {
+    public String getId() {
         return "TSV";
     }
 
     @NotNull
     @Override
-    public String getDescription() {
-        return "TSV file";
+    public LocalizeValue getDescription() {
+        return LocalizeValue.localizeTODO("TSV file");
     }
 
     @NotNull

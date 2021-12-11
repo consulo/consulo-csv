@@ -2,6 +2,7 @@ package net.seesharpsoft.intellij.plugins.psv;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import consulo.csv.icon.CsvIconGroup;
+import consulo.localize.LocalizeValue;
 import consulo.ui.image.Image;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -17,14 +18,14 @@ public final class PsvFileType extends LanguageFileType {
 
     @NotNull
     @Override
-    public String getName() {
+    public String getId() {
         return "PSV";
     }
 
     @NotNull
     @Override
-    public String getDescription() {
-        return "PSV file";
+    public LocalizeValue getDescription() {
+        return LocalizeValue.localizeTODO("PSV file");
     }
 
     @NotNull

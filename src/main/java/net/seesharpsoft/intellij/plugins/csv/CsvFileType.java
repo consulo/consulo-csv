@@ -1,11 +1,10 @@
 package net.seesharpsoft.intellij.plugins.csv;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
+import consulo.localize.LocalizeValue;
 import consulo.ui.image.Image;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
 
 public final class CsvFileType extends LanguageFileType {
     public static final CsvFileType INSTANCE = new CsvFileType();
@@ -16,14 +15,14 @@ public final class CsvFileType extends LanguageFileType {
 
     @NotNull
     @Override
-    public String getName() {
+    public String getId() {
         return "CSV";
     }
 
     @NotNull
     @Override
-    public String getDescription() {
-        return "CSV file";
+    public LocalizeValue getDescription() {
+        return LocalizeValue.localizeTODO("CSV file");
     }
 
     @NotNull
