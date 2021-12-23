@@ -1,4 +1,4 @@
-<consulo-plugin>
+<consulo-plugin url="https://github.com/consulo/consulo-csv">
     <id>net.seesharpsoft.intellij.plugins.csv</id>
     <name>CSV Plugin</name>
     <vendor url="https://github.com/SeeSharpSoft/intellij-csv-validator">
