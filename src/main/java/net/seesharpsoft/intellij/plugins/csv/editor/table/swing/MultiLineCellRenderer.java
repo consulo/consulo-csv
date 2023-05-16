@@ -1,13 +1,12 @@
 package net.seesharpsoft.intellij.plugins.csv.editor.table.swing;
 
-import com.intellij.openapi.editor.colors.EditorColorsManager;
-import com.intellij.openapi.editor.colors.EditorColorsScheme;
-import com.intellij.openapi.editor.colors.EditorFontType;
-import com.intellij.openapi.editor.impl.FontFallbackIterator;
-import com.intellij.openapi.editor.markup.TextAttributes;
-import com.intellij.ui.components.JBScrollPane;
-import com.intellij.util.ui.UIUtil;
-import consulo.awt.TargetAWT;
+import consulo.colorScheme.EditorColorsManager;
+import consulo.colorScheme.EditorColorsScheme;
+import consulo.colorScheme.EditorFontType;
+import consulo.colorScheme.TextAttributes;
+import consulo.ui.ex.awt.JBScrollPane;
+import consulo.ui.ex.awt.UIUtil;
+import consulo.ui.ex.awtUnsafe.TargetAWT;
 import consulo.util.dataholder.UserDataHolder;
 import net.seesharpsoft.intellij.plugins.csv.settings.CsvColorSettings;
 import org.jetbrains.annotations.NotNull;
@@ -68,7 +67,8 @@ public class MultiLineCellRenderer extends JBScrollPane implements TableCellRend
         if (isSelected) {
             myTextArea.setForeground(table.getSelectionForeground());
             myTextArea.setBackground(table.getSelectionBackground());
-        } else {
+        }
+        else {
             myTextArea.setForeground(getColumnForegroundColor(column, table.getForeground()));
             myTextArea.setBackground(getColumnBackgroundColor(column, table.getBackground()));
         }
@@ -78,7 +78,8 @@ public class MultiLineCellRenderer extends JBScrollPane implements TableCellRend
                 myTextArea.setForeground(UIManager.getColor(editorColorsScheme.getDefaultForeground()));
                 myTextArea.setBackground(UIManager.getColor(editorColorsScheme.getDefaultBackground()));
             }
-        } else {
+        }
+        else {
             myTextArea.setBorder(new EmptyBorder(1, 2, 1, 2));
         }
 
@@ -101,9 +102,10 @@ public class MultiLineCellRenderer extends JBScrollPane implements TableCellRend
             final Rectangle2D rectangle = myTextArea.modelToView2D(myTextArea.getDocument().getLength());
             if (rectangle != null) {
                 return new Dimension(this.getWidth(),
-                        (int)(this.getInsets().top + rectangle.getY() + rectangle.getHeight() + this.getInsets().bottom));
+                        (int) (this.getInsets().top + rectangle.getY() + rectangle.getHeight() + this.getInsets().bottom));
             }
-        } catch (BadLocationException e) {
+        }
+        catch (BadLocationException e) {
             e.printStackTrace();
         }
 
@@ -129,20 +131,7 @@ public class MultiLineCellRenderer extends JBScrollPane implements TableCellRend
 
     protected Font determineFont(@NotNull String text) {
         Font finalFont = UIUtil.getFontWithFallback(EditorColorsManager.getInstance().getGlobalScheme().getFont(EditorFontType.PLAIN));
-
-        FontFallbackIterator it = new FontFallbackIterator();
-        it.setPreferredFont(finalFont.getFamily(), finalFont.getSize());
-        it.setFontStyle(finalFont.getStyle());
-        it.start(text, 0, text.length());
-        for (; !it.atEnd(); it.advance()) {
-            Font font = it.getFont();
-            if (!font.getFamily().equals(finalFont.getFamily())) {
-                finalFont = font;
-                break;
-            }
-        }
-
-        return finalFont;
+        return UIUtil.getFontWithFallbackIfNeeded(finalFont, text);
     }
 
     @Override

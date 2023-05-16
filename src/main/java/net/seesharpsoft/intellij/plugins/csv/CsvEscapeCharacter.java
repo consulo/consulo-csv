@@ -1,6 +1,6 @@
 package net.seesharpsoft.intellij.plugins.csv;
 
-import com.intellij.util.xmlb.Converter;
+import consulo.util.xml.serializer.Converter;
 
 import java.util.Objects;
 import java.util.regex.Pattern;

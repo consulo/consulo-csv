@@ -1,16 +1,18 @@
 package net.seesharpsoft.intellij.plugins.csv.intention;
 
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.project.Project;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.TokenType;
-import com.intellij.util.IncorrectOperationException;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.codeEditor.Editor;
+import consulo.language.ast.TokenType;
+import consulo.language.editor.intention.IntentionMetaData;
+import consulo.language.psi.PsiElement;
+import consulo.language.util.IncorrectOperationException;
+import consulo.project.Project;
 import net.seesharpsoft.intellij.plugins.csv.CsvHelper;
-import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@NonNls
+@ExtensionImpl
+@IntentionMetaData(ignoreId = "csv.CsvUnquoteAllIntentionAction", fileExtensions = "csv", categories = "CSV/TSV/PSV")
 public class CsvUnquoteAllIntentionAction extends CsvIntentionAction {
 
     public CsvUnquoteAllIntentionAction() {

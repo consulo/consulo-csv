@@ -1,13 +1,17 @@
 package net.seesharpsoft.intellij.plugins.csv.settings;
 
-import com.intellij.openapi.application.Application;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.components.State;
-import com.intellij.openapi.components.Storage;
-import com.intellij.openapi.editor.ex.EditorSettingsExternalizable;
-import com.intellij.util.xmlb.annotations.OptionTag;
+import consulo.annotation.component.ComponentScope;
+import consulo.annotation.component.ServiceAPI;
+import consulo.annotation.component.ServiceImpl;
+import consulo.application.Application;
+import consulo.application.ApplicationManager;
+import consulo.codeEditor.PersistentEditorSettings;
+import consulo.component.persist.Storage;
+import consulo.ide.ServiceManager;
+import consulo.component.persist.State;
+import consulo.util.xml.serializer.annotation.OptionTag;
+import consulo.component.persist.PersistentStateComponent;
+import jakarta.inject.Singleton;
 import net.seesharpsoft.intellij.plugins.csv.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,7 +24,9 @@ import java.util.Objects;
         name = "CsvEditorSettings",
         storages = {@Storage(CsvStorageHelper.CSV_STATE_STORAGE_FILE)}
 )
-@SuppressWarnings("all")
+@ServiceAPI(ComponentScope.APPLICATION)
+@ServiceImpl
+@Singleton
 public class CsvEditorSettings implements PersistentStateComponent<CsvEditorSettings.OptionSet> {
 
     public static final int TABLE_EDITOR_ROW_HEIGHT_MIN = 0;
@@ -87,7 +93,7 @@ public class CsvEditorSettings implements PersistentStateComponent<CsvEditorSett
         public boolean AUTO_DETECT_VALUE_SEPARATOR = true;
 
         public OptionSet() {
-            EditorSettingsExternalizable editorSettingsExternalizable = EditorSettingsExternalizable.getInstance();
+            PersistentEditorSettings editorSettingsExternalizable = PersistentEditorSettings.getInstance();
             CARET_ROW_SHOWN = editorSettingsExternalizable == null ? true : editorSettingsExternalizable.isCaretRowShown();
             USE_SOFT_WRAP = editorSettingsExternalizable == null ? false : editorSettingsExternalizable.isUseSoftWraps();
         }
@@ -104,7 +110,7 @@ public class CsvEditorSettings implements PersistentStateComponent<CsvEditorSett
         if (application.isUnitTestMode()) {
             return CsvEditorSettings.STATIC_TEST_INSTANCE;
         }
-        return application.isDisposed() ? new CsvEditorSettings() :  ServiceManager.getService(CsvEditorSettings.class);
+        return application.isDisposed() ? new CsvEditorSettings() : ServiceManager.getService(CsvEditorSettings.class);
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
@@ -163,7 +169,8 @@ public class CsvEditorSettings implements PersistentStateComponent<CsvEditorSett
         String color = getState().TAB_HIGHLIGHT_COLOR;
         try {
             return color == null || color.isEmpty() ? null : Color.decode(getState().TAB_HIGHLIGHT_COLOR);
-        } catch (NumberFormatException exc) {
+        }
+        catch (NumberFormatException exc) {
             return null;
         }
     }
@@ -194,8 +201,12 @@ public class CsvEditorSettings implements PersistentStateComponent<CsvEditorSett
 
     public void setTableEditorRowHeight(int rowHeight) {
         int finalRowHeight = rowHeight;
-        if (finalRowHeight > TABLE_EDITOR_ROW_HEIGHT_MAX) finalRowHeight = TABLE_EDITOR_ROW_HEIGHT_MAX;
-        if (finalRowHeight < TABLE_EDITOR_ROW_HEIGHT_MIN) finalRowHeight = TABLE_EDITOR_ROW_HEIGHT_MIN;
+        if (finalRowHeight > TABLE_EDITOR_ROW_HEIGHT_MAX) {
+            finalRowHeight = TABLE_EDITOR_ROW_HEIGHT_MAX;
+        }
+        if (finalRowHeight < TABLE_EDITOR_ROW_HEIGHT_MIN) {
+            finalRowHeight = TABLE_EDITOR_ROW_HEIGHT_MIN;
+        }
         getState().TABLE_EDITOR_ROW_HEIGHT = finalRowHeight;
     }
 

@@ -1,11 +1,10 @@
 package net.seesharpsoft.intellij.plugins.csv.highlighter;
 
-import com.intellij.codeInsight.highlighting.HighlightUsagesHandlerBase;
-import com.intellij.openapi.editor.Caret;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiElement;
-import com.intellij.util.Consumer;
+import consulo.codeEditor.Caret;
+import consulo.codeEditor.Editor;
+import consulo.document.util.TextRange;
+import consulo.language.editor.highlight.usage.HighlightUsagesHandlerBase;
+import consulo.language.psi.PsiElement;
 import net.seesharpsoft.intellij.plugins.csv.CsvColumnInfo;
 import net.seesharpsoft.intellij.plugins.csv.CsvColumnInfoMap;
 import net.seesharpsoft.intellij.plugins.csv.CsvHelper;
@@ -14,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class CsvHighlightUsagesHandler extends HighlightUsagesHandlerBase {
 
@@ -60,7 +60,7 @@ public class CsvHighlightUsagesHandler extends HighlightUsagesHandlerBase {
 
     @Override
     protected void selectTargets(List list, Consumer consumer) {
-        consumer.consume(list);
+        consumer.accept(list);
     }
 
     protected void addOccurrence(CsvColumnInfo<PsiElement>.RowInfo rowInfo) {

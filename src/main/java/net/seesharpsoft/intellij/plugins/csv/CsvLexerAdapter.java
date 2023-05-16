@@ -1,6 +1,6 @@
 package net.seesharpsoft.intellij.plugins.csv;
 
-import com.intellij.lexer.FlexAdapter;
+import consulo.language.lexer.FlexAdapter;
 
 public class CsvLexerAdapter extends FlexAdapter {
     public CsvLexerAdapter(CsvValueSeparator separator, CsvEscapeCharacter escapeCharacter) {

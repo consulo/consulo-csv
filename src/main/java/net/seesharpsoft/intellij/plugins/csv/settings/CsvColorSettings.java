@@ -1,13 +1,14 @@
 package net.seesharpsoft.intellij.plugins.csv.settings;
 
-import com.intellij.openapi.editor.colors.EditorColorsManager;
-import com.intellij.openapi.editor.colors.EditorColorsScheme;
-import com.intellij.openapi.editor.colors.TextAttributesKey;
-import com.intellij.openapi.editor.markup.TextAttributes;
-import com.intellij.openapi.fileTypes.SyntaxHighlighter;
-import com.intellij.openapi.options.colors.AttributesDescriptor;
-import com.intellij.openapi.options.colors.ColorDescriptor;
-import com.intellij.openapi.options.colors.ColorSettingsPage;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.colorScheme.EditorColorsManager;
+import consulo.colorScheme.TextAttributesKey;
+import consulo.colorScheme.TextAttributes;
+import consulo.colorScheme.setting.AttributesDescriptor;
+import consulo.colorScheme.setting.ColorDescriptor;
+import consulo.colorScheme.EditorColorsScheme;
+import consulo.language.editor.colorScheme.setting.ColorSettingsPage;
+import consulo.language.editor.highlight.SyntaxHighlighter;
 import consulo.util.dataholder.Key;
 import consulo.util.dataholder.UserDataHolder;
 import net.seesharpsoft.UnhandledSwitchCaseException;
@@ -19,8 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static com.intellij.openapi.editor.colors.TextAttributesKey.createTextAttributesKey;
+import static consulo.colorScheme.TextAttributesKey.createTextAttributesKey;
 
+@ExtensionImpl
 public class CsvColorSettings implements ColorSettingsPage {
 
     private static final Integer MAX_COLUMN_COLORING_COLORS = 10;
@@ -38,7 +40,8 @@ public class CsvColorSettings implements ColorSettingsPage {
 
         COLUMN_COLORING_ATTRIBUTES = new ArrayList<>();
         for (int i = 0; i < MAX_COLUMN_COLORING_COLORS; ++i) {
-            TextAttributesKey textAttributesKey = createTextAttributesKey(String.format("CSV_PLUGIN_COLUMN_COLORING_ATTRIBUTE_%d", i + 1), CsvSyntaxHighlighter.TEXT);
+            TextAttributesKey
+              textAttributesKey = createTextAttributesKey(String.format("CSV_PLUGIN_COLUMN_COLORING_ATTRIBUTE_%d", i + 1), CsvSyntaxHighlighter.TEXT);
             COLUMN_COLORING_ATTRIBUTES.add(textAttributesKey);
             attributesDescriptors.add(new AttributesDescriptor(String.format("Column Color %d", i + 1), textAttributesKey));
         }

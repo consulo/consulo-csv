@@ -1,14 +1,14 @@
 package net.seesharpsoft.intellij.plugins.csv.editor.table.swing;
 
-import com.intellij.openapi.editor.colors.EditorColorsManager;
-import com.intellij.openapi.editor.colors.EditorColorsScheme;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiElement;
-import com.intellij.ui.components.labels.LinkLabel;
-import com.intellij.ui.table.JBTable;
-import com.intellij.util.ArrayUtil;
-import consulo.awt.TargetAWT;
+import consulo.language.psi.PsiElement;
+import consulo.project.Project;
+import consulo.util.collection.ArrayUtil;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.ui.ex.awt.LinkLabel;
+import consulo.ui.ex.awt.table.JBTable;
+import consulo.ui.ex.awtUnsafe.TargetAWT;
+import consulo.colorScheme.EditorColorsManager;
+import consulo.colorScheme.EditorColorsScheme;
 import consulo.platform.base.icon.PlatformIconGroup;
 import net.seesharpsoft.intellij.plugins.csv.CsvColumnInfo;
 import net.seesharpsoft.intellij.plugins.csv.CsvColumnInfoMap;

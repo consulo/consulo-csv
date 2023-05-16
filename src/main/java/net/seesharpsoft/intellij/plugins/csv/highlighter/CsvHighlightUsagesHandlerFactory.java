@@ -1,13 +1,15 @@
 package net.seesharpsoft.intellij.plugins.csv.highlighter;
 
-import com.intellij.codeInsight.highlighting.HighlightUsagesHandlerBase;
-import com.intellij.codeInsight.highlighting.HighlightUsagesHandlerFactory;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.psi.PsiFile;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.highlight.usage.HighlightUsagesHandlerBase;
+import consulo.codeEditor.Editor;
+import consulo.language.psi.PsiFile;
+import consulo.language.editor.highlight.usage.HighlightUsagesHandlerFactory;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@ExtensionImpl
 public class CsvHighlightUsagesHandlerFactory implements HighlightUsagesHandlerFactory {
     @Nullable
     @Override

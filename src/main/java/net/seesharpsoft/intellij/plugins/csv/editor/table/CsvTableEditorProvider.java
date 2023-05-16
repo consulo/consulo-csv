@@ -1,19 +1,21 @@
 package net.seesharpsoft.intellij.plugins.csv.editor.table;
 
-import com.intellij.openapi.fileEditor.AsyncFileEditorProvider;
-import com.intellij.openapi.fileEditor.FileEditor;
-import com.intellij.openapi.fileEditor.FileEditorPolicy;
-import com.intellij.openapi.fileEditor.FileEditorState;
-import com.intellij.openapi.project.DumbAware;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.SingleRootFileViewProvider;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.fileEditor.AsyncFileEditorProvider;
+import consulo.fileEditor.FileEditor;
+import consulo.fileEditor.FileEditorPolicy;
+import consulo.fileEditor.FileEditorState;
+import consulo.application.dumb.DumbAware;
+import consulo.project.Project;
+import consulo.language.impl.file.SingleRootFileViewProvider;
+import consulo.virtualFileSystem.VirtualFile;
 import net.seesharpsoft.intellij.plugins.csv.CsvHelper;
 import net.seesharpsoft.intellij.plugins.csv.settings.CsvEditorSettings;
 import net.seesharpsoft.intellij.plugins.csv.editor.table.swing.CsvTableEditorSwing;
 import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
 
+@ExtensionImpl
 public class CsvTableEditorProvider implements AsyncFileEditorProvider, DumbAware {
 
     public static final String EDITOR_TYPE_ID = "csv-table-editor";

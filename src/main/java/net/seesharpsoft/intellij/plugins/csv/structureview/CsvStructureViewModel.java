@@ -1,10 +1,10 @@
 package net.seesharpsoft.intellij.plugins.csv.structureview;
 
-import com.intellij.ide.structureView.StructureViewModel;
-import com.intellij.ide.structureView.StructureViewModelBase;
-import com.intellij.ide.structureView.StructureViewTreeElement;
-import com.intellij.ide.util.treeView.smartTree.Sorter;
-import com.intellij.psi.PsiFile;
+import consulo.fileEditor.structureView.StructureViewModel;
+import consulo.fileEditor.structureView.StructureViewTreeElement;
+import consulo.language.editor.structureView.StructureViewModelBase;
+import consulo.fileEditor.structureView.tree.Sorter;
+import consulo.language.psi.PsiFile;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvFile;
 import org.jetbrains.annotations.NotNull;
 

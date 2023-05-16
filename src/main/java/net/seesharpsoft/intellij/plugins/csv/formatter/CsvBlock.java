@@ -1,11 +1,10 @@
 package net.seesharpsoft.intellij.plugins.csv.formatter;
 
-import com.intellij.formatting.*;
-import com.intellij.lang.ASTFactory;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.TokenType;
-import com.intellij.psi.formatter.common.AbstractBlock;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.codeStyle.*;
+import consulo.language.impl.ast.ASTFactory;
+import consulo.language.ast.ASTNode;
+import consulo.language.ast.TokenType;
+import consulo.language.ast.IElementType;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvTypes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

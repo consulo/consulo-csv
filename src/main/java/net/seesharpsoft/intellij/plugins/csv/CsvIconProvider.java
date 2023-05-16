@@ -1,15 +1,17 @@
 package net.seesharpsoft.intellij.plugins.csv;
 
-import com.intellij.psi.PsiElement;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.icon.IconDescriptorUpdater;
+import consulo.language.psi.PsiElement;
 import consulo.annotation.access.RequiredReadAction;
 import consulo.csv.icon.CsvIconGroup;
-import consulo.ide.IconDescriptor;
-import consulo.ide.IconDescriptorUpdater;
+import consulo.language.icon.IconDescriptor;
 import consulo.ui.image.Image;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvField;
 
 import javax.annotation.Nonnull;
 
+@ExtensionImpl
 public class CsvIconProvider implements IconDescriptorUpdater {
 
     public static final Image FILE = CsvIconGroup.csv_icon();

@@ -104,7 +104,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="bdd04" class="com.intellij.ui.components.labels.LinkLabel" binding="lnkAdjustColumnWidth">
+                  <component id="bdd04" class="consulo.ui.ex.awt.LinkLabel" binding="lnkAdjustColumnWidth">
                     <constraints/>
                     <properties>
                       <icon value="media/icons/empty.png"/>
@@ -184,7 +184,7 @@
                   </component>
                 </children>
               </grid>
-              <component id="8e338" class="com.intellij.ui.components.labels.LinkLabel" binding="lnkTextEditor" custom-create="true">
+              <component id="8e338" class="consulo.ui.ex.awt.LinkLabel" binding="lnkTextEditor" custom-create="true">
                 <constraints>
                   <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="0.0" weighty="0.0"/>
@@ -223,7 +223,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="b3775" class="com.intellij.ui.table.JBTable" binding="tblEditor" custom-create="true">
+          <component id="b3775" class="consulo.ui.ex.awt.table.JBTable" binding="tblEditor" custom-create="true">
             <constraints/>
             <properties>
               <columnSelectionAllowed value="true"/>
@@ -265,7 +265,7 @@
                   <text value="Editing via Table Editor might change the format of the CSV file. Follow the link for more infos, addressing issues and providing suggestions:"/>
                 </properties>
               </component>
-              <component id="7fcf0" class="com.intellij.ui.components.labels.LinkLabel" binding="lnkPlugin">
+              <component id="7fcf0" class="consulo.ui.ex.awt.LinkLabel" binding="lnkPlugin">
                 <constraints/>
                 <properties>
                   <horizontalTextPosition value="10"/>

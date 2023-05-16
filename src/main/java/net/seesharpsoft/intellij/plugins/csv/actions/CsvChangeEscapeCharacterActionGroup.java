@@ -1,10 +1,10 @@
 package net.seesharpsoft.intellij.plugins.csv.actions;
 
-import com.intellij.openapi.actionSystem.ActionGroup;
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.psi.PsiFile;
+import consulo.language.psi.PsiFile;
+import consulo.ui.ex.action.ActionGroup;
+import consulo.language.editor.CommonDataKeys;
+import consulo.ui.ex.action.AnAction;
+import consulo.ui.ex.action.AnActionEvent;
 import net.seesharpsoft.intellij.plugins.csv.CsvEscapeCharacter;
 import net.seesharpsoft.intellij.plugins.csv.CsvHelper;
 import org.jetbrains.annotations.NotNull;

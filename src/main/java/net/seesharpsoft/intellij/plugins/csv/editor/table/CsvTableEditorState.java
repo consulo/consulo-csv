@@ -1,10 +1,10 @@
 package net.seesharpsoft.intellij.plugins.csv.editor.table;
 
-import com.intellij.openapi.fileEditor.FileEditorState;
-import com.intellij.openapi.fileEditor.FileEditorStateLevel;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.text.StringUtilRt;
-import com.intellij.openapi.vfs.VirtualFile;
+import consulo.fileEditor.FileEditorState;
+import consulo.project.Project;
+import consulo.util.lang.StringUtil;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.fileEditor.FileEditorStateLevel;
 import net.seesharpsoft.intellij.plugins.csv.settings.CsvEditorSettings;
 import org.jdom.Attribute;
 import org.jdom.Element;
@@ -109,7 +109,7 @@ public class CsvTableEditorState implements FileEditorState {
         }
 
         state.setRowLines(
-                StringUtilRt.parseInt(element.getAttributeValue("rowLines"), CsvEditorSettings.getInstance().getTableEditorRowHeight())
+          StringUtil.parseInt(element.getAttributeValue("rowLines"), CsvEditorSettings.getInstance().getTableEditorRowHeight())
         );
 
         List<Element> columnWidthElements = element.getChildren("column");
@@ -117,8 +117,8 @@ public class CsvTableEditorState implements FileEditorState {
         int defaultColumnWidth = CsvEditorSettings.getInstance().getTableDefaultColumnWidth();
         for (int i = 0; i < columnWidthElements.size(); ++i) {
             Element columnElement = columnWidthElements.get(i);
-            int index = StringUtilRt.parseInt(columnElement.getAttributeValue("index"), i);
-            columnWidths[index] = StringUtilRt.parseInt(columnElement.getAttributeValue("width"), defaultColumnWidth);
+            int index = StringUtil.parseInt(columnElement.getAttributeValue("index"), i);
+            columnWidths[index] = StringUtil.parseInt(columnElement.getAttributeValue("width"), defaultColumnWidth);
         }
         state.setColumnWidths(columnWidths);
 

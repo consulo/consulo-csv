@@ -1,9 +1,9 @@
 package net.seesharpsoft.intellij.plugins.csv.formatter;
 
-import com.intellij.formatting.Block;
-import com.intellij.formatting.Spacing;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.TokenType;
+import consulo.language.ast.ASTNode;
+import consulo.language.ast.TokenType;
+import consulo.language.codeStyle.Block;
+import consulo.language.codeStyle.Spacing;
 import net.seesharpsoft.intellij.plugins.csv.CsvColumnInfo;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvTypes;
 import org.jetbrains.annotations.NotNull;

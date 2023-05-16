@@ -1,12 +1,14 @@
 package net.seesharpsoft.intellij.plugins.csv.settings;
 
-import com.intellij.lang.Language;
-import com.intellij.psi.codeStyle.CodeStyleSettingsCustomizable;
-import com.intellij.psi.codeStyle.CommonCodeStyleSettings;
-import com.intellij.psi.codeStyle.LanguageCodeStyleSettingsProvider;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.codeStyle.setting.CodeStyleSettingsCustomizable;
+import consulo.language.codeStyle.CommonCodeStyleSettings;
+import consulo.language.codeStyle.setting.LanguageCodeStyleSettingsProvider;
+import consulo.language.Language;
 import net.seesharpsoft.intellij.plugins.csv.CsvLanguage;
 import org.jetbrains.annotations.NotNull;
 
+@ExtensionImpl
 public class CsvLanguageCodeStyleSettingsProvider extends LanguageCodeStyleSettingsProvider {
     @NotNull
     @Override
@@ -59,9 +61,9 @@ public class CsvLanguageCodeStyleSettingsProvider extends LanguageCodeStyleSetti
 
         if (settingsType == SettingsType.WRAPPING_AND_BRACES_SETTINGS) {
             consumer.showStandardOptions(
-                    CodeStyleSettingsCustomizable.WrappingOrBraceOption.RIGHT_MARGIN.toString(),
-                    CodeStyleSettingsCustomizable.WrappingOrBraceOption.WRAP_LONG_LINES.toString(),
-                    CodeStyleSettingsCustomizable.WrappingOrBraceOption.WRAP_ON_TYPING.toString()
+              CodeStyleSettingsCustomizable.WrappingOrBraceOption.RIGHT_MARGIN.toString(),
+              CodeStyleSettingsCustomizable.WrappingOrBraceOption.WRAP_LONG_LINES.toString(),
+              CodeStyleSettingsCustomizable.WrappingOrBraceOption.WRAP_ON_TYPING.toString()
             );
         }
     }

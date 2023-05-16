@@ -21,7 +21,7 @@
 //        SOFTWARE.
 package net.seesharpsoft.intellij.plugins.csv.editor.table.swing;
 
-import com.intellij.ui.table.JBTable;
+import consulo.ui.ex.awt.table.JBTable;
 
 import javax.swing.*;
 import javax.swing.border.Border;

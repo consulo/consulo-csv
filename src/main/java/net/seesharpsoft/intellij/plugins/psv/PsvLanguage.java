@@ -1,6 +1,6 @@
 package net.seesharpsoft.intellij.plugins.psv;
 
-import com.intellij.lang.Language;
+import consulo.language.Language;
 import net.seesharpsoft.intellij.plugins.csv.CsvLanguage;
 import net.seesharpsoft.intellij.plugins.csv.CsvSeparatorHolder;
 import net.seesharpsoft.intellij.plugins.csv.CsvValueSeparator;

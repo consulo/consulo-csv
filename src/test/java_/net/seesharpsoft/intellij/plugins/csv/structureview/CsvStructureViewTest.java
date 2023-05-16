@@ -1,9 +1,9 @@
 package net.seesharpsoft.intellij.plugins.csv.structureview;
 
-import com.intellij.ide.structureView.StructureViewTreeElement;
-import com.intellij.ide.util.treeView.smartTree.TreeElement;
-import com.intellij.navigation.ItemPresentation;
+import consulo.fileEditor.structureView.StructureViewTreeElement;
+import consulo.fileEditor.structureView.tree.TreeElement;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
+import consulo.navigation.ItemPresentation;
 import net.seesharpsoft.intellij.plugins.csv.settings.CsvEditorSettings;
 
 public class CsvStructureViewTest extends BasePlatformTestCase {

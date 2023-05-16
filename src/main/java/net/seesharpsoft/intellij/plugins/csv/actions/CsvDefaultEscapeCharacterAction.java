@@ -1,12 +1,12 @@
 package net.seesharpsoft.intellij.plugins.csv.actions;
 
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.actionSystem.PlatformDataKeys;
-import com.intellij.openapi.actionSystem.ToggleAction;
-import com.intellij.openapi.fileEditor.FileEditor;
-import com.intellij.psi.PsiFile;
-import com.intellij.util.FileContentUtilCore;
+import consulo.document.util.FileContentUtilCore;
+import consulo.fileEditor.FileEditor;
+import consulo.ui.ex.action.AnActionEvent;
+import consulo.language.editor.CommonDataKeys;
+import consulo.language.editor.PlatformDataKeys;
+import consulo.ui.ex.action.ToggleAction;
+import consulo.language.psi.PsiFile;
 import net.seesharpsoft.intellij.plugins.csv.CsvHelper;
 import net.seesharpsoft.intellij.plugins.csv.components.CsvFileAttributes;
 import org.jetbrains.annotations.NotNull;

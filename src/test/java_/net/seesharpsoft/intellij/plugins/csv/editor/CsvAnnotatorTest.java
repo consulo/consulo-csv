@@ -1,18 +1,18 @@
 package net.seesharpsoft.intellij.plugins.csv.editor;
 
-import com.intellij.codeInsight.daemon.impl.HighlightInfo;
-import com.intellij.codeInsight.daemon.impl.HighlightInfoType;
-import com.intellij.openapi.Disposable;
-import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.project.DumbService;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Disposer;
-import com.intellij.psi.PsiDocumentManager;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.impl.cache.CacheManager;
-import com.intellij.psi.impl.source.PsiFileImpl;
-import com.intellij.psi.impl.source.tree.FileElement;
-import com.intellij.psi.search.GlobalSearchScope;
+import consulo.language.cacheBuilder.CacheManager;
+import consulo.language.editor.rawHighlight.HighlightInfo;
+import consulo.language.editor.rawHighlight.HighlightInfoType;
+import consulo.disposer.Disposable;
+import consulo.ide.ServiceManager;
+import consulo.language.impl.ast.FileElement;
+import consulo.language.impl.psi.PsiFileImpl;
+import consulo.project.DumbService;
+import consulo.project.Project;
+import consulo.ide.impl.idea.openapi.util.Disposer;
+import consulo.language.psi.PsiDocumentManager;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.scope.GlobalSearchScope;
 import com.intellij.testFramework.EdtTestUtil;
 import com.intellij.testFramework.ExpectedHighlightingData;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
@@ -60,7 +60,7 @@ public class CsvAnnotatorTest extends BasePlatformTestCase {
         }
 
         long start = System.currentTimeMillis();
-        Disposable disposable = Disposer.newDisposable();
+        Disposable disposable = consulo.ide.impl.idea.openapi.util.Disposer.newDisposable();
 
         List<HighlightInfo> infos;
         try {

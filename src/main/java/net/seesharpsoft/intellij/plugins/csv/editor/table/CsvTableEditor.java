@@ -1,25 +1,29 @@
 package net.seesharpsoft.intellij.plugins.csv.editor.table;
 
-import com.google.common.primitives.Ints;
-import com.intellij.codeHighlighting.BackgroundEditorHighlighter;
-import com.intellij.ide.structureView.StructureViewBuilder;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.editor.colors.EditorColorsManager;
-import com.intellij.openapi.editor.colors.EditorFontType;
-import com.intellij.openapi.fileEditor.*;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.ReadonlyStatusHandler;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiDocumentManager;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.util.ArrayUtil;
-import com.intellij.util.ui.UIUtil;
+import consulo.application.ApplicationManager;
+import consulo.colorScheme.EditorColorsManager;
+import consulo.colorScheme.EditorFontType;
+import consulo.document.Document;
+import consulo.document.FileDocumentManager;
+import consulo.fileEditor.FileEditor;
+import consulo.fileEditor.FileEditorLocation;
+import consulo.fileEditor.FileEditorState;
+import consulo.fileEditor.FileEditorStateLevel;
+import consulo.fileEditor.highlight.BackgroundEditorHighlighter;
+import consulo.fileEditor.structureView.StructureViewBuilder;
+import consulo.fileEditor.structureView.StructureViewBuilderProvider;
+import consulo.language.psi.PsiDocumentManager;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.project.Project;
+import consulo.ui.ex.awt.UIUtil;
+import consulo.undoRedo.CommandProcessor;
+import consulo.util.collection.ArrayUtil;
 import consulo.util.dataholder.Key;
 import consulo.util.dataholder.UserDataHolder;
 import consulo.util.dataholder.UserDataHolderBase;
+import consulo.virtualFileSystem.ReadonlyStatusHandler;
+import consulo.virtualFileSystem.VirtualFile;
 import kava.beans.PropertyChangeListener;
 import kava.beans.PropertyChangeSupport;
 import net.seesharpsoft.intellij.plugins.csv.*;
@@ -34,7 +38,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 public abstract class CsvTableEditor implements FileEditor, FileEditorLocation {
@@ -295,7 +298,17 @@ public abstract class CsvTableEditor implements FileEditor, FileEditorLocation {
 
     @Nullable
     public StructureViewBuilder getStructureViewBuilder() {
-        return isValid() ? StructureViewBuilder.PROVIDER.getStructureViewBuilder(file.getFileType(), file, this.project) : null;
+        if (!isValid()) {
+            return null;
+        }
+
+        for (StructureViewBuilderProvider provider : project.getApplication().getExtensionList(StructureViewBuilderProvider.class)) {
+            StructureViewBuilder builder = provider.getStructureViewBuilder(file.getFileType(), file, project);
+            if (builder != null) {
+                return builder;
+            }
+        }
+        return null;
     }
 
     @Nullable
@@ -396,12 +409,12 @@ public abstract class CsvTableEditor implements FileEditor, FileEditorLocation {
     }
 
     public final Object[][] removeRows(int[] indices) {
-        List<Integer> currentRows = Ints.asList(indices);
-        currentRows.sort(Collections.reverseOrder());
+        int[] sortedIndices = ArrayUtil.copyOf(indices);
+        sortedIndices = ArrayUtil.reverseArray(sortedIndices);
         TableDataHandler dataHandler = getDataHandler();
         Object[][] currentData = dataHandler.getCurrentState();
         int offset = getFileEditorState().getFixedHeaders() ? 1 : 0;
-        for (int currentRow : currentRows) {
+        for (int currentRow : sortedIndices) {
             currentData = ArrayUtil.remove(currentData, currentRow + offset);
         }
         updateTableComponentData(dataHandler.addState(currentData));
@@ -421,11 +434,11 @@ public abstract class CsvTableEditor implements FileEditor, FileEditorLocation {
     }
 
     public final Object[][] removeColumns(int[] indices) {
-        List<Integer> currentColumns = Ints.asList(indices);
-        currentColumns.sort(Collections.reverseOrder());
+        int[] sortedIndices = ArrayUtil.copyOf(indices);
+        sortedIndices = ArrayUtil.reverseArray(sortedIndices);
         TableDataHandler dataHandler = getDataHandler();
         Object[][] currentData = dataHandler.getCurrentState();
-        for (int currentColumn : currentColumns) {
+        for (int currentColumn : sortedIndices) {
             for (int i = 0; i < currentData.length; ++i) {
                 currentData[i] = ArrayUtil.remove(currentData[i], currentColumn);
             }

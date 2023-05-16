@@ -1,6 +1,15 @@
 package net.seesharpsoft.intellij.plugins.csv;
 
-import com.intellij.psi.impl.cache.impl.todo.PlainTextTodoIndexer;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.plain.psi.stub.todo.PlainTextTodoIndexerBase;
+import consulo.virtualFileSystem.fileType.FileType;
+import jakarta.annotation.Nonnull;
 
-public class CsvTodoIndexer extends PlainTextTodoIndexer {
+@ExtensionImpl
+public class CsvTodoIndexer extends PlainTextTodoIndexerBase {
+    @Nonnull
+    @Override
+    public FileType getFileType() {
+        return CsvFileType.INSTANCE;
+    }
 }

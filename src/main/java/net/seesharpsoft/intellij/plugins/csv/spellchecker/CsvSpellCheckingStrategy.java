@@ -1,10 +1,16 @@
 package net.seesharpsoft.intellij.plugins.csv.spellchecker;
 
-import com.intellij.psi.PsiElement;
-import com.intellij.spellchecker.tokenizer.SpellcheckingStrategy;
-import com.intellij.spellchecker.tokenizer.Tokenizer;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.psi.PsiElement;
+import consulo.language.spellcheker.SpellcheckingStrategy;
+import consulo.language.spellcheker.tokenizer.Tokenizer;
+import net.seesharpsoft.intellij.plugins.csv.CsvLanguage;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvField;
 
+import javax.annotation.Nonnull;
+
+@ExtensionImpl
 public class CsvSpellCheckingStrategy extends SpellcheckingStrategy {
     @Override
     public Tokenizer getTokenizer(PsiElement element) {
@@ -12,5 +18,11 @@ public class CsvSpellCheckingStrategy extends SpellcheckingStrategy {
             return TEXT_TOKENIZER;
         }
         return EMPTY_TOKENIZER;
+    }
+
+    @Nonnull
+    @Override
+    public Language getLanguage() {
+        return CsvLanguage.INSTANCE;
     }
 }

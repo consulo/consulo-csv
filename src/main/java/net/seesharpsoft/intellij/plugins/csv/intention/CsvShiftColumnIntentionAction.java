@@ -1,10 +1,10 @@
 package net.seesharpsoft.intellij.plugins.csv.intention;
 
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiDocumentManager;
-import com.intellij.psi.PsiElement;
+import consulo.document.util.TextRange;
+import consulo.language.psi.PsiElement;
+import consulo.document.Document;
+import consulo.language.psi.PsiDocumentManager;
+import consulo.project.Project;
 import net.seesharpsoft.intellij.plugins.csv.CsvColumnInfo;
 import net.seesharpsoft.intellij.plugins.csv.CsvHelper;
 import net.seesharpsoft.intellij.plugins.csv.CsvValueSeparator;

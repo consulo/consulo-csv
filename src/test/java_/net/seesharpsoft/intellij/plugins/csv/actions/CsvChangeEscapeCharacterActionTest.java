@@ -1,6 +1,6 @@
 package net.seesharpsoft.intellij.plugins.csv.actions;
 
-import com.intellij.openapi.actionSystem.Presentation;
+import consulo.ui.ex.action.Presentation;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 import net.seesharpsoft.intellij.plugins.csv.CsvEscapeCharacter;
 import net.seesharpsoft.intellij.plugins.csv.CsvHelper;

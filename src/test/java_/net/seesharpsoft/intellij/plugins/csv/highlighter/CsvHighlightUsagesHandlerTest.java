@@ -1,12 +1,12 @@
 package net.seesharpsoft.intellij.plugins.csv.highlighter;
 
-import com.intellij.codeInsight.highlighting.HighlightUsagesHandler;
-import com.intellij.codeInsight.highlighting.HighlightUsagesHandlerBase;
-import com.intellij.featureStatistics.FeatureUsageTracker;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.markup.RangeHighlighter;
-import com.intellij.openapi.util.TextRange;
+import consulo.codeEditor.Editor;
+import consulo.document.util.TextRange;
+import consulo.ide.impl.idea.codeInsight.highlighting.HighlightUsagesHandler;
+import consulo.externalService.statistic.FeatureUsageTracker;
+import consulo.codeEditor.markup.RangeHighlighter;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
+import consulo.language.editor.highlight.usage.HighlightUsagesHandlerBase;
 
 public class CsvHighlightUsagesHandlerTest extends BasePlatformTestCase {
 
@@ -22,7 +22,8 @@ public class CsvHighlightUsagesHandlerTest extends BasePlatformTestCase {
     private RangeHighlighter[] testHighlightUsages(String... fileNames) {
         myFixture.configureByFiles(fileNames);
 
-        HighlightUsagesHandlerBase handler = HighlightUsagesHandler.createCustomHandler(myFixture.getEditor(), myFixture.getFile());
+        HighlightUsagesHandlerBase
+          handler = consulo.ide.impl.idea.codeInsight.highlighting.HighlightUsagesHandler.createCustomHandler(myFixture.getEditor(), myFixture.getFile());
 
         String featureId = handler.getFeatureId();
         if (featureId != null) {

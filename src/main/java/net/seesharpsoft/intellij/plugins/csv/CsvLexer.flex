@@ -1,9 +1,9 @@
 package net.seesharpsoft.intellij.plugins.csv;
 
-import com.intellij.psi.tree.IElementType;
+import consulo.language.ast.IElementType;
+import consulo.language.ast.TokenType;
+import consulo.language.lexer.FlexLexer;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvTypes;
-import com.intellij.psi.TokenType;
-import com.intellij.lexer.FlexLexer;
 
 import java.util.regex.Pattern;
 

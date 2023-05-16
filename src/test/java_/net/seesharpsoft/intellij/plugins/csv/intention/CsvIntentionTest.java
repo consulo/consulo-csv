@@ -1,7 +1,7 @@
 package net.seesharpsoft.intellij.plugins.csv.intention;
 
-import com.intellij.codeInsight.intention.IntentionAction;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
+import consulo.language.editor.intention.IntentionAction;
 import net.seesharpsoft.intellij.plugins.csv.CsvEscapeCharacter;
 import net.seesharpsoft.intellij.plugins.csv.settings.CsvEditorSettings;
 
@@ -25,8 +25,8 @@ public class CsvIntentionTest extends BasePlatformTestCase {
     protected void doTestIntention(String testName, String hint, boolean expectError) throws Throwable {
         myFixture.configureByFile(testName + "/before.csv");
         final IntentionAction action = myFixture.filterAvailableIntentions(hint).stream()
-                .filter(intentionAction -> intentionAction.getText().equals(hint))
-                .findFirst().orElse(null);
+                                                .filter(intentionAction -> intentionAction.getText().equals(hint))
+                                                .findFirst().orElse(null);
         if (action == null) {
             assertTrue("action not found -> this was expected: " + expectError, expectError);
         } else {

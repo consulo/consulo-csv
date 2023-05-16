@@ -1,9 +1,9 @@
 package net.seesharpsoft.intellij.plugins.csv;
 
-import com.intellij.lexer.Lexer;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiFile;
+import consulo.language.psi.PsiFile;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.language.lexer.Lexer;
+import consulo.project.Project;
 import net.seesharpsoft.intellij.plugins.csv.settings.CsvEditorSettings;
 import org.jetbrains.annotations.NotNull;
 

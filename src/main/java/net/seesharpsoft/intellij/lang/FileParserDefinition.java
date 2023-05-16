@@ -1,9 +1,9 @@
 package net.seesharpsoft.intellij.lang;
 
-import com.intellij.lang.ParserDefinition;
-import com.intellij.lang.PsiParser;
-import com.intellij.lexer.Lexer;
-import com.intellij.psi.PsiFile;
+import consulo.language.lexer.Lexer;
+import consulo.language.parser.PsiParser;
+import consulo.language.psi.PsiFile;
+import consulo.language.parser.ParserDefinition;
 
 /**
  * Support for file specific parser definition.

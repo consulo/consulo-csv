@@ -1,13 +1,11 @@
 package net.seesharpsoft.intellij.plugins.csv.editor;
 
-import com.intellij.lang.annotation.*;
-import com.intellij.openapi.editor.markup.TextAttributes;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.openapi.vcs.ui.FontUtil;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.xml.util.XmlStringUtil;
-import consulo.awt.TargetAWT;
+import consulo.colorScheme.TextAttributes;
+import consulo.document.util.TextRange;
+import consulo.language.ast.IElementType;
+import consulo.language.editor.annotation.*;
+import consulo.language.psi.PsiElement;
+import consulo.ui.ex.awtUnsafe.TargetAWT;
 import consulo.util.dataholder.Key;
 import net.seesharpsoft.intellij.plugins.csv.CsvColumnInfo;
 import net.seesharpsoft.intellij.plugins.csv.CsvHelper;
@@ -18,7 +16,7 @@ import net.seesharpsoft.intellij.plugins.csv.settings.CsvColorSettings;
 import net.seesharpsoft.intellij.plugins.csv.settings.CsvEditorSettings;
 import org.jetbrains.annotations.NotNull;
 
-import static com.intellij.lang.annotation.HighlightSeverity.INFORMATION;
+import static consulo.language.editor.annotation.HighlightSeverity.INFORMATION;
 
 @SuppressWarnings("MagicNumber")
 public class CsvAnnotator implements Annotator {
@@ -46,16 +44,12 @@ public class CsvAnnotator implements Annotator {
 
         if (columnInfo != null) {
             PsiElement headerElement = columnInfo.getHeaderElement();
-            String message = FontUtil.getHtmlWithFonts(
-                    XmlStringUtil.escapeString(headerElement == null ? "" : headerElement.getText(), true)
-            );
+            String message = consulo.util.lang.xml.XmlStringUtil.escapeString(headerElement == null ? "" : headerElement.getText(), true);
             String tooltip = null;
             if (showInfoBalloon(holder.getCurrentAnnotationSession())) {
-                tooltip = XmlStringUtil.wrapInHtml(
+                tooltip = consulo.util.lang.xml.XmlStringUtil.wrapInHtml(
                         String.format("%s<br /><br />Header: %s<br />Index: %d",
-                                FontUtil.getHtmlWithFonts(
-                                        XmlStringUtil.escapeString(element.getText(), true)
-                                ),
+                                consulo.util.lang.xml.XmlStringUtil.escapeString(element.getText(), true),
                                 message,
                                 columnInfo.getColumnIndex() + (CsvEditorSettings.getInstance().isZeroBasedColumnNumbering() ? 0 : 1)
                         )
@@ -66,7 +60,8 @@ public class CsvAnnotator implements Annotator {
                 textRange = TextRange.from(textRange.getStartOffset() - 1, 1);
             }
 
-            final Annotation annotation = holder.createAnnotation(CSV_COLUMN_INFO_SEVERITY, textRange, message/*, tooltip*/);
+            final Annotation
+              annotation = holder.createAnnotation(CSV_COLUMN_INFO_SEVERITY, textRange, message/*, tooltip*/);
             annotation.setEnforcedTextAttributes(
                     CsvEditorSettings.getInstance().getValueColoring() == CsvEditorSettings.ValueColoring.RAINBOW ?
                             CsvColorSettings.getTextAttributesOfColumn(columnInfo.getColumnIndex(), holder.getCurrentAnnotationSession()) :
@@ -92,15 +87,16 @@ public class CsvAnnotator implements Annotator {
                 CsvValueSeparator separator = CsvHelper.getValueSeparator(csvFile);
                 if (CsvEditorSettings.getInstance().isHighlightTabSeparator() && separator.equals(CsvValueSeparator.TAB)) {
                     textAttributes = new TextAttributes(null,
-                            TargetAWT.from(CsvEditorSettings.getInstance().getTabHighlightColor()),
-                            null, null, 0);
+                                                                            TargetAWT.from(CsvEditorSettings.getInstance().getTabHighlightColor()),
+                                                                            null, null, 0);
                     holder.getCurrentAnnotationSession().putUserData(TAB_SEPARATOR_HIGHLIGHT_COLOR_KEY, textAttributes);
                     holder.getCurrentAnnotationSession().putUserData(TAB_SEPARATOR_HIGHLIGHT_COLOR_DETERMINED_KEY, Boolean.TRUE);
                 }
             }
             if (textAttributes != null) {
                 final TextRange textRange = element.getTextRange();
-                final Annotation annotation = holder.createAnnotation(CSV_COLUMN_INFO_SEVERITY, textRange, showInfoBalloon(holder.getCurrentAnnotationSession()) ? "↹" : null);
+                final Annotation
+                  annotation = holder.createAnnotation(CSV_COLUMN_INFO_SEVERITY, textRange, showInfoBalloon(holder.getCurrentAnnotationSession()) ? "↹" : null);
                 annotation.setEnforcedTextAttributes(textAttributes);
                 annotation.setNeedsUpdateOnTyping(false);
             }

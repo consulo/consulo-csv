@@ -1,11 +1,11 @@
 package net.seesharpsoft.intellij.plugins.csv.psi;
 
-import com.intellij.extapi.psi.PsiFileBase;
-import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.openapi.fileTypes.LanguageFileType;
-import com.intellij.psi.FileViewProvider;
-import com.intellij.psi.PsiElement;
-import com.intellij.util.FileContentUtilCore;
+import consulo.document.util.FileContentUtilCore;
+import consulo.virtualFileSystem.fileType.FileType;
+import consulo.language.file.LanguageFileType;
+import consulo.language.file.FileViewProvider;
+import consulo.language.psi.PsiElement;
+import consulo.language.impl.psi.PsiFileBase;
 import net.seesharpsoft.intellij.plugins.csv.CsvColumnInfoMap;
 import net.seesharpsoft.intellij.plugins.csv.CsvHelper;
 import org.jetbrains.annotations.NotNull;

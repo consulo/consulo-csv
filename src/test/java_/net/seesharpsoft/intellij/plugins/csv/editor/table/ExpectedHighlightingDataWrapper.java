@@ -1,9 +1,9 @@
 package net.seesharpsoft.intellij.plugins.csv.editor.table;
 
-import com.intellij.codeInsight.daemon.impl.HighlightInfo;
-import com.intellij.openapi.editor.Document;
-import com.intellij.psi.PsiFile;
 import com.intellij.testFramework.ExpectedHighlightingData;
+import consulo.document.Document;
+import consulo.language.editor.rawHighlight.HighlightInfo;
+import consulo.language.psi.PsiFile;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;

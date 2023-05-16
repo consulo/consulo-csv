@@ -1,15 +1,17 @@
 package net.seesharpsoft.intellij.plugins.csv;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.PsiParser;
-import com.intellij.lexer.Lexer;
-import com.intellij.psi.FileViewProvider;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.TokenType;
-import com.intellij.psi.tree.IFileElementType;
-import com.intellij.psi.tree.TokenSet;
-import consulo.lang.LanguageVersion;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.lexer.Lexer;
+import consulo.language.parser.PsiParser;
+import consulo.language.file.FileViewProvider;
+import consulo.language.psi.PsiFile;
+import consulo.language.ast.TokenType;
+import consulo.language.ast.IFileElementType;
+import consulo.language.ast.TokenSet;
+import consulo.language.version.LanguageVersion;
+import consulo.language.ast.ASTNode;
+import consulo.language.psi.PsiElement;
 import net.seesharpsoft.intellij.lang.FileParserDefinition;
 import net.seesharpsoft.intellij.plugins.csv.parser.CsvParser;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvFile;
@@ -17,10 +19,19 @@ import net.seesharpsoft.intellij.plugins.csv.psi.CsvFileElementType;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvTypes;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
+
+@ExtensionImpl
 public class CsvParserDefinition implements FileParserDefinition {
     public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
 
     public static final IFileElementType FILE = new CsvFileElementType(CsvLanguage.INSTANCE);
+
+    @Nonnull
+    @Override
+    public Language getLanguage() {
+        return CsvLanguage.INSTANCE;
+    }
 
     @NotNull
     @Override

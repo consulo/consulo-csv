@@ -1,9 +1,14 @@
 package net.seesharpsoft.intellij.plugins.csv;
 
-import com.intellij.lang.Commenter;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Commenter;
+import consulo.language.Language;
 import net.seesharpsoft.intellij.plugins.csv.settings.CsvEditorSettings;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+
+@ExtensionImpl
 public class CsvCommenter implements Commenter {
 
     @Nullable
@@ -35,5 +40,11 @@ public class CsvCommenter implements Commenter {
     @Override
     public String getCommentedBlockCommentSuffix() {
         return null;
+    }
+
+    @Nonnull
+    @Override
+    public Language getLanguage() {
+        return CsvLanguage.INSTANCE;
     }
 }

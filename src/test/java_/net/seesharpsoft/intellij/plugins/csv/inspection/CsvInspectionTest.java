@@ -1,6 +1,6 @@
 package net.seesharpsoft.intellij.plugins.csv.inspection;
 
-import com.intellij.codeInsight.intention.IntentionAction;
+import consulo.language.editor.intention.IntentionAction;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
 public class CsvInspectionTest extends BasePlatformTestCase {

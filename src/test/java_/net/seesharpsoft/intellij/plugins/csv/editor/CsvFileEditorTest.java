@@ -1,10 +1,9 @@
 package net.seesharpsoft.intellij.plugins.csv.editor;
 
-import com.intellij.openapi.editor.EditorSettings;
-import com.intellij.openapi.fileEditor.*;
-import com.intellij.openapi.fileEditor.ex.FileEditorProviderManager;
-import com.intellij.openapi.fileEditor.impl.text.TextEditorState;
+import consulo.fileEditor.*;
+import consulo.fileEditor.text.TextEditorState;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
+import consulo.codeEditor.EditorSettings;
 import net.seesharpsoft.intellij.plugins.csv.settings.CsvEditorSettings;
 import org.jdom.Element;
 

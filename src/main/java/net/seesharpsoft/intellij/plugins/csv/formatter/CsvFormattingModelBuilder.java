@@ -1,20 +1,21 @@
 package net.seesharpsoft.intellij.plugins.csv.formatter;
 
-import com.intellij.formatting.FormattingModel;
-import com.intellij.formatting.FormattingModelBuilder;
-import com.intellij.formatting.FormattingModelProvider;
-import com.intellij.lang.ASTNode;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.codeStyle.CodeStyleSettings;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.ast.ASTNode;
+import consulo.language.codeStyle.*;
+import consulo.language.psi.PsiElement;
+import net.seesharpsoft.intellij.plugins.csv.CsvLanguage;
 
+import javax.annotation.Nonnull;
+
+@ExtensionImpl
 public class CsvFormattingModelBuilder implements FormattingModelBuilder {
-    @NotNull
+    @Nonnull
     @Override
-    public FormattingModel createModel(PsiElement element, CodeStyleSettings settings) {
+    public FormattingModel createModel(@Nonnull FormattingContext context) {
+        PsiElement element = context.getPsiElement();
+        CodeStyleSettings settings = context.getCodeStyleSettings();
         ASTNode root = CsvFormatHelper.getRoot(element.getNode());
         CsvFormattingInfo formattingInfo = new CsvFormattingInfo(
                 settings,
@@ -29,9 +30,9 @@ public class CsvFormattingModelBuilder implements FormattingModelBuilder {
         );
     }
 
-    @Nullable
+    @Nonnull
     @Override
-    public TextRange getRangeAffectingIndent(PsiFile file, int offset, ASTNode elementAtOffset) {
-        return null;
+    public Language getLanguage() {
+        return CsvLanguage.INSTANCE;
     }
 }

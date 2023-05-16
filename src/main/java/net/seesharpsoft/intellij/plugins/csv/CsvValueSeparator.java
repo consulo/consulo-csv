@@ -1,7 +1,7 @@
 package net.seesharpsoft.intellij.plugins.csv;
 
-import com.intellij.util.xmlb.Converter;
-import com.intellij.xml.util.XmlStringUtil;
+import consulo.util.lang.xml.XmlStringUtil;
+import consulo.util.xml.serializer.Converter;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -65,7 +65,7 @@ public class CsvValueSeparator {
 
     public static class CsvValueSeparatorConverter extends Converter<CsvValueSeparator> {
         public CsvValueSeparator fromString(String value) {
-            return CsvValueSeparator.create(XmlStringUtil.unescapeIllegalXmlChars(value));
+            return CsvValueSeparator.create(consulo.util.lang.xml.XmlStringUtil.unescapeIllegalXmlChars(value));
         }
 
         public String toString(CsvValueSeparator value) {

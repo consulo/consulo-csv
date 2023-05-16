@@ -1,14 +1,20 @@
 package net.seesharpsoft.intellij.plugins.csv.structureview;
 
-import com.intellij.ide.structureView.StructureViewBuilder;
-import com.intellij.ide.structureView.StructureViewModel;
-import com.intellij.ide.structureView.TreeBasedStructureViewBuilder;
-import com.intellij.lang.PsiStructureViewFactory;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.psi.PsiFile;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.fileEditor.structureView.StructureViewBuilder;
+import consulo.fileEditor.structureView.StructureViewModel;
+import consulo.fileEditor.structureView.TreeBasedStructureViewBuilder;
+import consulo.language.Language;
+import consulo.language.editor.structureView.PsiStructureViewFactory;
+import consulo.codeEditor.Editor;
+import consulo.language.psi.PsiFile;
+import net.seesharpsoft.intellij.plugins.csv.CsvLanguage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+
+@ExtensionImpl
 public class CsvStructureViewFactory implements PsiStructureViewFactory {
     @Nullable
     @Override
@@ -20,5 +26,11 @@ public class CsvStructureViewFactory implements PsiStructureViewFactory {
                 return new CsvStructureViewModel(psiFile);
             }
         };
+    }
+
+    @Nonnull
+    @Override
+    public Language getLanguage() {
+        return CsvLanguage.INSTANCE;
     }
 }

@@ -1,20 +1,22 @@
 package net.seesharpsoft.intellij.plugins.csv.settings;
 
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.editor.StripTrailingSpacesFilter;
-import com.intellij.openapi.editor.StripTrailingSpacesFilterFactory;
-import com.intellij.openapi.fileEditor.FileDocumentManager;
-import com.intellij.openapi.fileTypes.LanguageFileType;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.component.ComponentManager;
+import consulo.document.Document;
+import consulo.document.FileDocumentManager;
+import consulo.document.StripTrailingSpacesFilter;
+import consulo.document.StripTrailingSpacesFilterFactory;
+import consulo.language.file.LanguageFileType;
+import consulo.virtualFileSystem.VirtualFile;
 import net.seesharpsoft.intellij.plugins.csv.CsvLanguage;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+
+@ExtensionImpl
 public class CsvStripTrailingSpacesFilterFactory extends StripTrailingSpacesFilterFactory {
-    @NotNull
+    @Nonnull
     @Override
-    public StripTrailingSpacesFilter createFilter(@Nullable Project project, @NotNull Document document) {
+    public StripTrailingSpacesFilter createFilter(@javax.annotation.Nullable ComponentManager project, @Nonnull Document document) {
         VirtualFile virtualFile = FileDocumentManager.getInstance().getFile(document);
         if (project != null &&
                 virtualFile != null &&

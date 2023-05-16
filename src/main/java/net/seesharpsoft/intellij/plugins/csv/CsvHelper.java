@@ -1,21 +1,27 @@
 package net.seesharpsoft.intellij.plugins.csv;
 
-import com.intellij.lang.*;
-import com.intellij.lexer.Lexer;
-import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.openapi.fileTypes.FileTypeRegistry;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.TokenType;
-import com.intellij.psi.impl.source.DummyHolder;
-import com.intellij.psi.impl.source.DummyHolderFactory;
-import com.intellij.psi.impl.source.tree.FileElement;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.util.PsiTreeUtil;
-import consulo.lang.LanguageVersion;
+import consulo.language.Language;
+import consulo.language.ast.ASTNode;
+import consulo.language.ast.IElementType;
+import consulo.language.ast.TokenType;
+import consulo.language.impl.ast.FileElement;
+import consulo.language.impl.ast.TreeElement;
+import consulo.language.impl.psi.DummyHolder;
+import consulo.language.impl.psi.DummyHolderFactory;
+import consulo.language.lexer.Lexer;
+import consulo.language.parser.ParserDefinition;
+import consulo.language.parser.PsiBuilder;
+import consulo.language.parser.PsiBuilderFactory;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.PsiManager;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.language.util.LanguageUtil;
+import consulo.language.version.LanguageVersion;
+import consulo.project.Project;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.fileType.FileType;
+import consulo.virtualFileSystem.fileType.FileTypeRegistry;
 import net.seesharpsoft.intellij.lang.FileParserDefinition;
 import net.seesharpsoft.intellij.plugins.csv.components.CsvFileAttributes;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvField;
@@ -42,12 +48,13 @@ public final class CsvHelper {
         final PsiManager psiManager = PsiManager.getInstance(project);
         final DummyHolder dummyHolder = DummyHolderFactory.createHolder(psiManager, null);
         final FileElement fileElement = dummyHolder.getTreeElement();
-        final FileParserDefinition parserDefinition = (FileParserDefinition) LanguageParserDefinitions.INSTANCE.forLanguage(CsvLanguage.INSTANCE);
+        final FileParserDefinition parserDefinition = (FileParserDefinition) ParserDefinition.forLanguage(CsvLanguage.INSTANCE);
         final Lexer lexer = parserDefinition.createLexer(psiFile);
         LanguageVersion version = psiFile.getLanguageVersion();
-        final PsiBuilder psiBuilder = PsiBuilderFactory.getInstance().createBuilder(project, fileElement, lexer, CsvLanguage.INSTANCE, version, text);
+        final PsiBuilder
+          psiBuilder = PsiBuilderFactory.getInstance().createBuilder(project, fileElement, lexer, CsvLanguage.INSTANCE, version, text);
         final ASTNode node = parserDefinition.createParser(version).parse(type, psiBuilder, version);
-        fileElement.rawAddChildren((com.intellij.psi.impl.source.tree.TreeElement) node);
+        fileElement.rawAddChildren((TreeElement) node);
         return node.getPsi();
     }
 

@@ -1,9 +1,12 @@
 package net.seesharpsoft.intellij.plugins.csv.settings;
 
-import com.intellij.openapi.options.Configurable;
-import com.intellij.openapi.options.ConfigurationException;
-import com.intellij.openapi.ui.ComboBox;
 import com.intellij.ui.CheckBoxWithColorChooser;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.configurable.ApplicationConfigurable;
+import consulo.configurable.ConfigurationException;
+import consulo.configurable.StandardConfigurableIds;
+import consulo.disposer.Disposable;
+import consulo.ui.ex.awt.ComboBox;
 import net.seesharpsoft.intellij.plugins.csv.CsvEscapeCharacter;
 import net.seesharpsoft.intellij.plugins.csv.CsvValueSeparator;
 import net.seesharpsoft.intellij.ui.CustomDisplayListCellRenderer;
@@ -16,7 +19,8 @@ import java.awt.*;
 import java.text.NumberFormat;
 import java.util.Objects;
 
-public class CsvEditorSettingsProvider implements Configurable {
+@ExtensionImpl
+public class CsvEditorSettingsProvider implements ApplicationConfigurable {
 
     public static final String CSV_EDITOR_SETTINGS_ID = "Csv.Editor.Settings";
 
@@ -45,15 +49,21 @@ public class CsvEditorSettingsProvider implements Configurable {
     private JCheckBox cbHeaderRowFixed;
     private JCheckBox cbAutoDetectSeparator;
 
-//    @NotNull
-//    @Override
-//    public String getId() {
-//        return CSV_EDITOR_SETTINGS_ID;
-//    }
+    @NotNull
+    @Override
+    public String getId() {
+        return CSV_EDITOR_SETTINGS_ID;
+    }
 
     @Override
     public String getDisplayName() {
         return "CSV/TSV/PSV";
+    }
+
+    @Nullable
+    @Override
+    public String getParentId() {
+        return StandardConfigurableIds.EDITOR_GROUP;
     }
 
     @Override
@@ -63,7 +73,7 @@ public class CsvEditorSettingsProvider implements Configurable {
 
     @Nullable
     @Override
-    public JComponent createComponent() {
+    public JComponent createComponent(Disposable uiDisposable) {
         return myMainPanel;
     }
 

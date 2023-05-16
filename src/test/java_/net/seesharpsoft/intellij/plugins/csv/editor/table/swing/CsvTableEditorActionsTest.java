@@ -1,7 +1,7 @@
 package net.seesharpsoft.intellij.plugins.csv.editor.table.swing;
 
-import com.intellij.openapi.fileEditor.FileEditorManager;
-import com.intellij.openapi.fileEditor.TextEditor;
+import consulo.fileEditor.FileEditorManager;
+import consulo.fileEditor.TextEditor;
 import net.seesharpsoft.intellij.plugins.csv.settings.CsvEditorSettings;
 
 import javax.swing.table.TableColumn;

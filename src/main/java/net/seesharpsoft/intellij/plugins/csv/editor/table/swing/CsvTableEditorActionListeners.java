@@ -1,10 +1,10 @@
 package net.seesharpsoft.intellij.plugins.csv.editor.table.swing;
 
-import com.intellij.openapi.fileEditor.FileEditorManager;
-import com.intellij.openapi.fileEditor.OpenFileDescriptor;
-import com.intellij.ui.components.labels.LinkLabel;
-import com.intellij.ui.components.labels.LinkListener;
-import com.intellij.ui.table.JBTable;
+import consulo.fileEditor.FileEditorManager;
+import consulo.navigation.OpenFileDescriptorFactory;
+import consulo.ui.ex.awt.LinkLabel;
+import consulo.ui.ex.awt.LinkListener;
+import consulo.ui.ex.awt.table.JBTable;
 import net.seesharpsoft.intellij.plugins.csv.editor.CsvFileEditorProvider;
 import net.seesharpsoft.intellij.plugins.csv.editor.table.api.TableActions;
 
@@ -165,7 +165,7 @@ public class CsvTableEditorActionListeners extends CsvTableEditorUtilBase implem
     private final class OpenTextEditor implements LinkListener {
         @Override
         public void linkSelected(LinkLabel linkLabel, Object o) {
-            FileEditorManager.getInstance(csvTableEditor.getProject()).openTextEditor(new OpenFileDescriptor(csvTableEditor.getProject(), csvTableEditor.getFile()), true);
+            FileEditorManager.getInstance(csvTableEditor.getProject()).openTextEditor(OpenFileDescriptorFactory.getInstance(csvTableEditor.getProject()).builder(csvTableEditor.getFile()).build(), true);
             // this line is for legacy reasons (https://youtrack.jetbrains.com/issue/IDEA-199790)
             FileEditorManager.getInstance(csvTableEditor.getProject()).setSelectedEditor(csvTableEditor.getFile(), CsvFileEditorProvider.EDITOR_TYPE_ID);
         }

@@ -1,7 +1,7 @@
 package net.seesharpsoft.intellij.plugins.csv.settings;
 
-import com.intellij.psi.codeStyle.CodeStyleSettings;
-import com.intellij.psi.codeStyle.CustomCodeStyleSettings;
+import consulo.language.codeStyle.CodeStyleSettings;
+import consulo.language.codeStyle.CustomCodeStyleSettings;
 
 @SuppressWarnings({"checkstyle:membername", "checkstyle:visibilitymodifier"})
 public class CsvCodeStyleSettings extends CustomCodeStyleSettings {

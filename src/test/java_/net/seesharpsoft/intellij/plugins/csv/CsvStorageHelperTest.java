@@ -1,7 +1,7 @@
 package net.seesharpsoft.intellij.plugins.csv;
 
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.testFramework.LightVirtualFile;
+import consulo.language.file.light.LightVirtualFile;
+import consulo.virtualFileSystem.VirtualFile;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 import com.intellij.util.PathUtil;
 

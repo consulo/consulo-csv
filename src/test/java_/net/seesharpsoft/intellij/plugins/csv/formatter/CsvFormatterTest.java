@@ -1,10 +1,10 @@
 package net.seesharpsoft.intellij.plugins.csv.formatter;
 
-import com.intellij.openapi.command.WriteCommandAction;
-import com.intellij.psi.codeStyle.CodeStyleManager;
-import com.intellij.psi.codeStyle.CodeStyleSettingsManager;
+import consulo.language.editor.WriteCommandAction;
+import consulo.language.codeStyle.CodeStyleManager;
+import consulo.language.codeStyle.CodeStyleSettingsManager;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
-import com.intellij.util.containers.ContainerUtil;
+import consulo.util.collection.ContainerUtil;
 import net.seesharpsoft.intellij.plugins.csv.settings.CsvCodeStyleSettings;
 import org.junit.Assert;
 
@@ -73,7 +73,7 @@ public class CsvFormatterTest extends BasePlatformTestCase {
 
         WriteCommandAction.writeCommandAction(getProject()).run(() -> {
             CodeStyleManager.getInstance(getProject()).reformatText(myFixture.getFile(),
-                    ContainerUtil.newArrayList(myFixture.getFile().getTextRange()));
+                                                                    ContainerUtil.newArrayList(myFixture.getFile().getTextRange()));
         });
         if (checkResults) {
             myFixture.checkResultByFile(relativeTargetPath + String.format("/TestResult%08d.csv", binarySettings));
@@ -171,7 +171,7 @@ public class CsvFormatterTest extends BasePlatformTestCase {
 
             WriteCommandAction.writeCommandAction(getProject()).run(() -> {
                 CodeStyleManager.getInstance(getProject()).reformatText(myFixture.getFile(),
-                        ContainerUtil.newArrayList(myFixture.getFile().getTextRange()));
+                                                                        ContainerUtil.newArrayList(myFixture.getFile().getTextRange()));
             });
 
             try (PrintWriter writer = new PrintWriter(getTestDataPath() + String.format("/generated/TestResult%08d.csv", binarySettings))

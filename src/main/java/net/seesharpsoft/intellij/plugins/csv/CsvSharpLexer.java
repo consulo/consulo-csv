@@ -1,11 +1,10 @@
 package net.seesharpsoft.intellij.plugins.csv;
 
-import com.intellij.lexer.LexerBase;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.ast.IElementType;
+import consulo.language.lexer.LexerBase;
 import net.seesharpsoft.UnhandledSwitchCaseException;
 import net.seesharpsoft.commons.util.Tokenizer;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvTypes;
-import net.seesharpsoft.intellij.plugins.csv.settings.CsvEditorSettings;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -211,7 +210,7 @@ public class CsvSharpLexer extends LexerBase {
 
     protected void raiseFailure() {
         failed = true;
-        currentTokenType = com.intellij.psi.TokenType.BAD_CHARACTER;
+        currentTokenType = consulo.language.ast.TokenType.BAD_CHARACTER;
         tokenEnd = bufferEnd;
     }
 
@@ -279,7 +278,7 @@ public class CsvSharpLexer extends LexerBase {
                     currentTokenType = CsvTypes.COMMENT;
                     break;
                 case WHITESPACE:
-                    currentTokenType = com.intellij.psi.TokenType.WHITE_SPACE;
+                    currentTokenType = consulo.language.ast.TokenType.WHITE_SPACE;
                     break;
                 default:
                     throw new UnhandledSwitchCaseException(tokenInfo.token());

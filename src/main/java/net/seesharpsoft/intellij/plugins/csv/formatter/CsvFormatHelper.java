@@ -1,10 +1,10 @@
 package net.seesharpsoft.intellij.plugins.csv.formatter;
 
-import com.intellij.formatting.Block;
-import com.intellij.formatting.SpacingBuilder;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.codeStyle.CodeStyleSettings;
-import com.intellij.psi.formatter.common.AbstractBlock;
+import consulo.language.ast.ASTNode;
+import consulo.language.codeStyle.AbstractBlock;
+import consulo.language.codeStyle.CodeStyleSettings;
+import consulo.language.codeStyle.Block;
+import consulo.language.codeStyle.SpacingBuilder;
 import net.seesharpsoft.intellij.plugins.csv.CsvColumnInfo;
 import net.seesharpsoft.intellij.plugins.csv.CsvHelper;
 import net.seesharpsoft.intellij.plugins.csv.CsvLanguage;

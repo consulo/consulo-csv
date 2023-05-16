@@ -1,11 +1,12 @@
 package net.seesharpsoft.intellij.plugins.csv;
 
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.util.PathUtil;
+import consulo.project.Project;
 import consulo.util.dataholder.Key;
+import consulo.util.io.PathUtil;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.util.VirtualFilePathUtil;
 
+import java.io.File;
 import java.util.regex.Pattern;
 
 public final class CsvStorageHelper {
@@ -19,8 +20,8 @@ public final class CsvStorageHelper {
         }
         String filePath = virtualFile.getUserData(RELATIVE_FILE_URL);
         if (filePath == null && project.getBasePath() != null) {
-            String projectDir = PathUtil.getLocalPath(project.getBasePath());
-            filePath = PathUtil.getLocalPath(virtualFile)
+            String projectDir = VirtualFilePathUtil.getLocalPath(project.getBasePath());
+            filePath = VirtualFilePathUtil.getLocalPath(virtualFile)
                     .replaceFirst("^" + Pattern.quote(projectDir), "");
             virtualFile.putUserData(RELATIVE_FILE_URL, filePath);
         }
@@ -31,15 +32,15 @@ public final class CsvStorageHelper {
         if (fileName == null) {
             return false;
         }
-        String filePath = PathUtil.getLocalPath(fileName);
+        String filePath = VirtualFilePathUtil.getLocalPath(fileName);
         if (filePath == null ||
                 !CsvHelper.isCsvFile(PathUtil.getFileExtension(filePath))) {
             return false;
         }
-        if (project != null && FileUtil.exists(PathUtil.getLocalPath(project.getBasePath()) + filePath)) {
+        if (project != null && new File(VirtualFilePathUtil.getLocalPath(project.getBasePath()) + filePath).exists()) {
             return true;
         }
-        return FileUtil.exists(filePath);
+        return new File(filePath).exists();
     }
 
     private CsvStorageHelper() {

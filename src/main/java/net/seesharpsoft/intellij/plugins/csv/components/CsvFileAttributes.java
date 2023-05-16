@@ -1,24 +1,28 @@
 package net.seesharpsoft.intellij.plugins.csv.components;
 
-import com.intellij.lang.Language;
-import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.components.State;
-import com.intellij.openapi.components.Storage;
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.fileEditor.FileDocumentManager;
-import com.intellij.openapi.fileTypes.LanguageFileType;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiFile;
-import com.intellij.util.PathUtil;
-import com.intellij.util.xmlb.XmlSerializerUtil;
-import com.intellij.util.xmlb.annotations.OptionTag;
+import consulo.annotation.component.ComponentScope;
+import consulo.annotation.component.ServiceAPI;
+import consulo.annotation.component.ServiceImpl;
+import consulo.component.persist.PersistentStateComponent;
+import consulo.component.persist.State;
+import consulo.component.persist.Storage;
+import consulo.document.Document;
+import consulo.document.FileDocumentManager;
+import consulo.ide.ServiceManager;
+import consulo.language.Language;
+import consulo.language.file.LanguageFileType;
+import consulo.language.psi.PsiFile;
+import consulo.logging.Logger;
+import consulo.project.Project;
+import consulo.util.lang.StringUtil;
+import consulo.util.xml.serializer.XmlSerializerUtil;
+import consulo.util.xml.serializer.annotation.OptionTag;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.util.VirtualFilePathUtil;
+import jakarta.inject.Singleton;
 import net.seesharpsoft.commons.collection.Pair;
 import net.seesharpsoft.intellij.plugins.csv.*;
 import net.seesharpsoft.intellij.plugins.csv.settings.CsvEditorSettings;
-import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,6 +33,9 @@ import java.util.*;
         storages = {@Storage(CsvStorageHelper.CSV_STATE_STORAGE_FILE)}
 )
 @SuppressWarnings("all")
+@ServiceAPI(ComponentScope.PROJECT)
+@ServiceImpl
+@Singleton
 public class CsvFileAttributes implements PersistentStateComponent<CsvFileAttributes> {
     private final static Logger LOG = Logger.getInstance(CsvFileAttributes.class);
 
@@ -59,7 +66,7 @@ public class CsvFileAttributes implements PersistentStateComponent<CsvFileAttrib
 
     public void cleanupAttributeMap(@NotNull Project project) {
         List<String> faultyFiles = new ArrayList<>();
-        final String projectBasePath = PathUtil.getLocalPath(project.getBasePath());
+        final String projectBasePath = VirtualFilePathUtil.getLocalPath(project.getBasePath());
         attributeMap.forEach((fileName, attribute) -> {
             if (!CsvStorageHelper.csvFileExists(project, fileName)) {
                 LOG.debug(fileName + " not found or not CSV file");
@@ -92,7 +99,8 @@ public class CsvFileAttributes implements PersistentStateComponent<CsvFileAttrib
             attribute = new Attribute();
             if (!CsvHelper.isCsvFile(project, virtualFile)) {
                 LOG.error("CSV file attribute requested for non CSV file: " + virtualFile.toString());
-            } else {
+            }
+            else {
                 attributeMap.put(key, attribute);
             }
         }
@@ -154,7 +162,7 @@ public class CsvFileAttributes implements PersistentStateComponent<CsvFileAttrib
                         // count
                         .map(separator -> {
                             String character = separator.getCharacter();
-                            return Pair.of(separator, StringUtils.countMatches(text, character));
+                            return Pair.of(separator, StringUtil.countChars(text, character.charAt(0)));
                         })
                         // ignore non-matched separators
                         .filter(p -> p.getSecond() > 0)
