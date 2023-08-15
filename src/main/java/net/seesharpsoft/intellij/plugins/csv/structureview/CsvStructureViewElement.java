@@ -1,14 +1,14 @@
 package net.seesharpsoft.intellij.plugins.csv.structureview;
 
+import consulo.fileEditor.structureView.StructureViewTreeElement;
+import consulo.fileEditor.structureView.tree.SortableTreeElement;
 import consulo.fileEditor.structureView.tree.TreeElement;
-import consulo.navigation.ItemPresentation;
-import consulo.navigation.NavigationItem;
+import consulo.language.icon.IconDescriptorUpdaters;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiFile;
 import consulo.language.psi.PsiNamedElement;
-import consulo.fileEditor.structureView.StructureViewTreeElement;
-import consulo.fileEditor.structureView.tree.SortableTreeElement;
-import consulo.language.icon.IconDescriptorUpdaters;
+import consulo.navigation.ItemPresentation;
+import consulo.navigation.NavigationItem;
 import consulo.ui.image.Image;
 import net.seesharpsoft.intellij.plugins.csv.CsvColumnInfo;
 import net.seesharpsoft.intellij.plugins.csv.CsvColumnInfoMap;

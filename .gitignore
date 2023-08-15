@@ -28,4 +28,5 @@ out/
 build/
 gen/
 .consulo/
+sandbox/
 target/
