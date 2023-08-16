@@ -23,7 +23,7 @@ public class CsvIconProvider implements IconDescriptorUpdater {
     @Override
     public void updateIcon(@Nonnull IconDescriptor iconDescriptor, @Nonnull PsiElement element, int flags) {
         if (element instanceof CsvField) {
-            iconDescriptor.setMainIcon(PlatformIconGroup.nodesField();
+            iconDescriptor.setMainIcon(PlatformIconGroup.nodesField());
         }
     }
 }
