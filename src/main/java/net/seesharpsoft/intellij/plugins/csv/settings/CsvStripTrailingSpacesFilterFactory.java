@@ -8,15 +8,15 @@ import consulo.document.StripTrailingSpacesFilter;
 import consulo.document.StripTrailingSpacesFilterFactory;
 import consulo.language.file.LanguageFileType;
 import consulo.virtualFileSystem.VirtualFile;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import net.seesharpsoft.intellij.plugins.csv.CsvLanguage;
-
-import javax.annotation.Nonnull;
 
 @ExtensionImpl
 public class CsvStripTrailingSpacesFilterFactory extends StripTrailingSpacesFilterFactory {
     @Nonnull
     @Override
-    public StripTrailingSpacesFilter createFilter(@javax.annotation.Nullable ComponentManager project, @Nonnull Document document) {
+    public StripTrailingSpacesFilter createFilter(@Nullable ComponentManager project, @Nonnull Document document) {
         VirtualFile virtualFile = FileDocumentManager.getInstance().getFile(document);
         if (project != null &&
                 virtualFile != null &&

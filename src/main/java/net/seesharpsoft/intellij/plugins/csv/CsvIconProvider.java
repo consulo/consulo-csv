@@ -10,7 +10,7 @@ import consulo.platform.base.icon.PlatformIconGroup;
 import consulo.ui.image.Image;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvField;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 @ExtensionImpl
 public class CsvIconProvider implements IconDescriptorUpdater {

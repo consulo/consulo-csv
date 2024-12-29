@@ -9,7 +9,7 @@ import consulo.virtualFileSystem.VirtualFile;
 import net.seesharpsoft.intellij.plugins.csv.CsvLanguage;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 @ExtensionImpl
 public class CsvSyntaxHighlighterFactory extends SyntaxHighlighterFactory {

@@ -9,7 +9,7 @@ import net.seesharpsoft.intellij.plugins.csv.CsvParserDefinition;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvFile;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvFileElementType;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 @ExtensionImpl
 public class PsvParserDefinition extends CsvParserDefinition {

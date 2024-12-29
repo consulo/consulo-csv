@@ -10,7 +10,7 @@ import consulo.ui.UIAccess;
 import net.seesharpsoft.intellij.plugins.csv.components.CsvFileAttributes;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 public class CsvPlugin implements BackgroundStartupActivity, DumbAware {
     public static void doAsyncProjectMaintenance(@NotNull Project project) {

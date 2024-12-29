@@ -8,7 +8,7 @@ import consulo.language.spellcheker.tokenizer.Tokenizer;
 import net.seesharpsoft.intellij.plugins.csv.CsvLanguage;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvField;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 @ExtensionImpl
 public class CsvSpellCheckingStrategy extends SpellcheckingStrategy {

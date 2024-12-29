@@ -7,7 +7,7 @@ import consulo.language.codeStyle.*;
 import consulo.language.psi.PsiElement;
 import net.seesharpsoft.intellij.plugins.csv.CsvLanguage;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 @ExtensionImpl
 public class CsvFormattingModelBuilder implements FormattingModelBuilder {
