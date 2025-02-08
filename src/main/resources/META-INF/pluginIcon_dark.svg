@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="64px" height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-<path fill-rule="evenodd" clip-rule="evenodd" fill="#6C707E" d="M4.7,16.4c0-4.3,3.5-7.8,7.8-7.8h39c4.3,0,7.8,3.5,7.8,7.8v31.2
+<path fill-rule="evenodd" clip-rule="evenodd" fill="#CED0D6" d="M4.7,16.4c0-4.3,3.5-7.8,7.8-7.8h39c4.3,0,7.8,3.5,7.8,7.8v31.2
 	c0,4.3-3.5,7.8-7.8,7.8h-39c-4.3,0-7.8-3.5-7.8-7.8V16.4z M24.2,12.5h15.6v7.8H24.2V12.5z M20.3,20.3v-7.8h-7.8
 	c-2.2,0-3.9,1.7-3.9,3.9v3.9H20.3z M8.6,24.2v23.4c0,2.2,1.7,3.9,3.9,3.9h7.8V24.2H8.6z M24.2,24.2h15.6v27.3H24.2V24.2z M43.7,24.2
 	v27.3h7.8c2.2,0,3.9-1.7,3.9-3.9V24.2H43.7z M55.4,20.3v-3.9c0-2.2-1.7-3.9-3.9-3.9h-7.8v7.8H55.4z"/>
