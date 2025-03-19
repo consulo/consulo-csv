@@ -2,11 +2,10 @@ package net.seesharpsoft.intellij.plugins.csv.settings;
 
 import consulo.annotation.component.ExtensionImpl;
 import consulo.colorScheme.EditorColorsManager;
-import consulo.colorScheme.TextAttributesKey;
-import consulo.colorScheme.TextAttributes;
-import consulo.colorScheme.setting.AttributesDescriptor;
-import consulo.colorScheme.setting.ColorDescriptor;
 import consulo.colorScheme.EditorColorsScheme;
+import consulo.colorScheme.TextAttributes;
+import consulo.colorScheme.TextAttributesKey;
+import consulo.colorScheme.setting.AttributesDescriptor;
 import consulo.language.editor.colorScheme.setting.ColorSettingsPage;
 import consulo.language.editor.highlight.SyntaxHighlighter;
 import consulo.util.dataholder.Key;
@@ -25,9 +24,9 @@ import static consulo.colorScheme.TextAttributesKey.createTextAttributesKey;
 @ExtensionImpl
 public class CsvColorSettings implements ColorSettingsPage {
 
-    private static final Integer MAX_COLUMN_COLORING_COLORS = 10;
+    public static final Integer MAX_COLUMN_COLORING_COLORS = 10;
     private static final AttributesDescriptor[] DESCRIPTORS;
-    private static final List<TextAttributesKey> COLUMN_COLORING_ATTRIBUTES;
+    public static final List<TextAttributesKey> COLUMN_COLORING_ATTRIBUTES;
     private static final Key<List<TextAttributes>> COLUMN_COLORING_TEXT_ATTRIBUTES_KEY = Key.create("CSV_PLUGIN_COLUMN_COLORING_ATTRIBUTES");
 
     static {
@@ -110,12 +109,6 @@ public class CsvColorSettings implements ColorSettingsPage {
     @Override
     public AttributesDescriptor[] getAttributeDescriptors() {
         return DESCRIPTORS;
-    }
-
-    @NotNull
-    @Override
-    public ColorDescriptor[] getColorDescriptors() {
-        return new ColorDescriptor[0];
     }
 
     @NotNull
