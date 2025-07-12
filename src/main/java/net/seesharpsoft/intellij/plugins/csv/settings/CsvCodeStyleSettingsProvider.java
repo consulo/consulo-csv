@@ -11,7 +11,9 @@ import consulo.language.psi.PsiFile;
 import consulo.language.codeStyle.ui.setting.CodeStyleAbstractConfigurable;
 import consulo.language.codeStyle.ui.setting.CodeStyleAbstractPanel;
 import consulo.language.codeStyle.ui.setting.TabbedLanguageCodeStylePanel;
+import consulo.localize.LocalizeValue;
 import consulo.project.Project;
+import jakarta.annotation.Nonnull;
 import net.seesharpsoft.intellij.plugins.csv.CsvLanguage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -23,16 +25,16 @@ public class CsvCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
         return new CsvCodeStyleSettings(settings);
     }
 
-    @Nullable
+    @Nonnull
     @Override
-    public String getConfigurableDisplayName() {
-        return "CSV/TSV/PSV";
+    public LocalizeValue getConfigurableDisplayName() {
+        return LocalizeValue.localizeTODO("CSV/TSV/PSV");
     }
 
     @NotNull
     @Override
     public Configurable createSettingsPage(CodeStyleSettings settings, CodeStyleSettings originalSettings) {
-        return new CodeStyleAbstractConfigurable(settings, originalSettings, CsvLanguage.INSTANCE.getDisplayName()) {
+        return new CodeStyleAbstractConfigurable(settings, originalSettings, getConfigurableDisplayName().get()) {
             @Override
             protected CodeStyleAbstractPanel createPanel(CodeStyleSettings settings) {
                 return new CsvCodeStyleMainPanel(getCurrentSettings(), settings);

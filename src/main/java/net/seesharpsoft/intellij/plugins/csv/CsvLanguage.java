@@ -2,6 +2,7 @@ package net.seesharpsoft.intellij.plugins.csv;
 
 import consulo.language.Language;
 import consulo.language.plain.PlainTextLanguage;
+import consulo.localize.LocalizeValue;
 
 public final class CsvLanguage extends Language {
     public static final CsvLanguage INSTANCE = new CsvLanguage();
@@ -11,7 +12,7 @@ public final class CsvLanguage extends Language {
     }
 
     @Override
-    public String getDisplayName() {
-        return "CSV";
+    public LocalizeValue getDisplayName() {
+        return LocalizeValue.localizeTODO("CSV");
     }
 }

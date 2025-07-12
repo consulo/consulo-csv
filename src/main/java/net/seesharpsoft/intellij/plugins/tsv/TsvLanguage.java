@@ -1,6 +1,7 @@
 package net.seesharpsoft.intellij.plugins.tsv;
 
 import consulo.language.Language;
+import consulo.localize.LocalizeValue;
 import net.seesharpsoft.intellij.plugins.csv.CsvLanguage;
 import net.seesharpsoft.intellij.plugins.csv.CsvSeparatorHolder;
 import net.seesharpsoft.intellij.plugins.csv.CsvValueSeparator;
@@ -13,8 +14,8 @@ public final class TsvLanguage extends Language implements CsvSeparatorHolder {
     }
 
     @Override
-    public String getDisplayName() {
-        return "TSV";
+    public LocalizeValue getDisplayName() {
+        return LocalizeValue.localizeTODO("TSV");
     }
 
     @Override

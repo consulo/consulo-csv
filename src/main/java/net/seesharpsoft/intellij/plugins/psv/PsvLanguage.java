@@ -1,6 +1,7 @@
 package net.seesharpsoft.intellij.plugins.psv;
 
 import consulo.language.Language;
+import consulo.localize.LocalizeValue;
 import net.seesharpsoft.intellij.plugins.csv.CsvLanguage;
 import net.seesharpsoft.intellij.plugins.csv.CsvSeparatorHolder;
 import net.seesharpsoft.intellij.plugins.csv.CsvValueSeparator;
@@ -13,8 +14,8 @@ public final class PsvLanguage extends Language implements CsvSeparatorHolder {
     }
 
     @Override
-    public String getDisplayName() {
-        return "PSV";
+    public LocalizeValue getDisplayName() {
+        return LocalizeValue.localizeTODO("PSV");
     }
 
     @Override
