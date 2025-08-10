@@ -8,6 +8,7 @@ import consulo.colorScheme.TextAttributesKey;
 import consulo.colorScheme.setting.AttributesDescriptor;
 import consulo.language.editor.colorScheme.setting.ColorSettingsPage;
 import consulo.language.editor.highlight.SyntaxHighlighter;
+import consulo.localize.LocalizeValue;
 import consulo.util.dataholder.Key;
 import consulo.util.dataholder.UserDataHolder;
 import net.seesharpsoft.UnhandledSwitchCaseException;
@@ -113,7 +114,7 @@ public class CsvColorSettings implements ColorSettingsPage {
 
     @NotNull
     @Override
-    public String getDisplayName() {
-        return "CSV/TSV/PSV";
+    public LocalizeValue getDisplayName() {
+        return LocalizeValue.localizeTODO("CSV/TSV/PSV");
     }
 }

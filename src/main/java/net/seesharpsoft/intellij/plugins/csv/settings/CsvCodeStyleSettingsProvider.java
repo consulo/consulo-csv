@@ -34,7 +34,7 @@ public class CsvCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
     @NotNull
     @Override
     public Configurable createSettingsPage(CodeStyleSettings settings, CodeStyleSettings originalSettings) {
-        return new CodeStyleAbstractConfigurable(settings, originalSettings, getConfigurableDisplayName().get()) {
+        return new CodeStyleAbstractConfigurable(settings, originalSettings, getConfigurableDisplayName()) {
             @Override
             protected CodeStyleAbstractPanel createPanel(CodeStyleSettings settings) {
                 return new CsvCodeStyleMainPanel(getCurrentSettings(), settings);
@@ -65,8 +65,8 @@ public class CsvCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
             }
 
             @Override
-            public String getTabTitle() {
-                return "Wrapping";
+            public LocalizeValue getTabTitle() {
+                return LocalizeValue.localizeTODO("Wrapping");
             }
         }
 
@@ -76,8 +76,8 @@ public class CsvCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
             }
 
             @Override
-            protected String getTabTitle() {
-                return "Settings";
+            protected LocalizeValue getTabTitle() {
+                return LocalizeValue.localizeTODO("Settings");
             }
 
             @Override

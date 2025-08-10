@@ -6,6 +6,7 @@ import consulo.configurable.ApplicationConfigurable;
 import consulo.configurable.ConfigurationException;
 import consulo.configurable.StandardConfigurableIds;
 import consulo.disposer.Disposable;
+import consulo.localize.LocalizeValue;
 import consulo.ui.ex.awt.ComboBox;
 import net.seesharpsoft.intellij.plugins.csv.CsvEscapeCharacter;
 import net.seesharpsoft.intellij.plugins.csv.CsvValueSeparator;
@@ -56,8 +57,8 @@ public class CsvEditorSettingsProvider implements ApplicationConfigurable {
     }
 
     @Override
-    public String getDisplayName() {
-        return "CSV/TSV/PSV";
+    public LocalizeValue getDisplayName() {
+        return LocalizeValue.localizeTODO("CSV/TSV/PSV");
     }
 
     @Nullable

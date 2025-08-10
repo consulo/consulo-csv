@@ -9,6 +9,7 @@ import net.seesharpsoft.intellij.plugins.csv.CsvValueSeparator;
 public final class TsvLanguage extends Language implements CsvSeparatorHolder {
     public static final TsvLanguage INSTANCE = new TsvLanguage();
 
+
     private TsvLanguage() {
         super(CsvLanguage.INSTANCE, "tsv");
     }
