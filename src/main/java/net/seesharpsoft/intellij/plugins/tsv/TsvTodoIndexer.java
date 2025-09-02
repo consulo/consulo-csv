@@ -1,7 +1,7 @@
 package net.seesharpsoft.intellij.plugins.tsv;
 
 import consulo.annotation.component.ExtensionImpl;
-import consulo.language.plain.psi.stub.todo.PlainTextTodoIndexerBase;
+import consulo.language.psi.stub.todo.PlainTextTodoIndexerBase;
 import consulo.virtualFileSystem.fileType.FileType;
 import jakarta.annotation.Nonnull;
 
