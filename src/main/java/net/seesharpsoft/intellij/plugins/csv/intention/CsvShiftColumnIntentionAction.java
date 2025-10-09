@@ -1,36 +1,47 @@
 package net.seesharpsoft.intellij.plugins.csv.intention;
 
-import consulo.document.util.TextRange;
-import consulo.language.psi.PsiElement;
+import consulo.annotation.access.RequiredReadAction;
+import consulo.annotation.access.RequiredWriteAction;
 import consulo.document.Document;
+import consulo.document.util.TextRange;
 import consulo.language.psi.PsiDocumentManager;
+import consulo.language.psi.PsiElement;
+import consulo.localize.LocalizeValue;
 import consulo.project.Project;
+import jakarta.annotation.Nonnull;
 import net.seesharpsoft.intellij.plugins.csv.CsvColumnInfo;
 import net.seesharpsoft.intellij.plugins.csv.CsvHelper;
 import net.seesharpsoft.intellij.plugins.csv.CsvValueSeparator;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvFile;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public abstract class CsvShiftColumnIntentionAction extends CsvIntentionAction {
-
-    protected CsvShiftColumnIntentionAction(String text) {
+    protected CsvShiftColumnIntentionAction(@Nonnull LocalizeValue text) {
         super(text);
     }
 
-    protected static void changeLeftAndRightColumnOrder(@NotNull Project project,
-                                                        CsvFile csvFile,
-                                                        CsvColumnInfo<PsiElement> leftColumnInfo,
-                                                        CsvColumnInfo<PsiElement> rightColumnInfo) {
+    @RequiredWriteAction
+    protected static void changeLeftAndRightColumnOrder(
+        @Nonnull Project project,
+        CsvFile csvFile,
+        CsvColumnInfo<PsiElement> leftColumnInfo,
+        CsvColumnInfo<PsiElement> rightColumnInfo
+    ) {
         Document document = PsiDocumentManager.getInstance(project).getDocument(csvFile);
         document.setText(
-                changeLeftAndRightColumnOrder(document.getText(), CsvHelper.getValueSeparator(csvFile), leftColumnInfo, rightColumnInfo)
+            changeLeftAndRightColumnOrder(document.getText(), CsvHelper.getValueSeparator(csvFile), leftColumnInfo, rightColumnInfo)
         );
     }
 
-    @NotNull
-    protected static String changeLeftAndRightColumnOrder(String text, CsvValueSeparator separator, CsvColumnInfo<PsiElement> leftColumnInfo, CsvColumnInfo<PsiElement> rightColumnInfo) {
+    @Nonnull
+    @RequiredReadAction
+    protected static String changeLeftAndRightColumnOrder(
+        String text,
+        CsvValueSeparator separator,
+        CsvColumnInfo<PsiElement> leftColumnInfo,
+        CsvColumnInfo<PsiElement> rightColumnInfo
+    ) {
         List<PsiElement> rightElements = rightColumnInfo.getElements();
         List<PsiElement> leftElements = leftColumnInfo.getElements();
         int lastIndex = 0;
@@ -47,13 +58,13 @@ public abstract class CsvShiftColumnIntentionAction extends CsvIntentionAction {
             TextRange leftSeparator = findPreviousSeparatorOrCRLF(leftElement);
             TextRange middleSeparator = findNextSeparatorOrCRLF(leftElement);
             TextRange rightSeparator = rightElement == null ?
-                    TextRange.create(middleSeparator.getEndOffset(), middleSeparator.getEndOffset()) :
-                    findNextSeparatorOrCRLF(rightElement);
+                TextRange.create(middleSeparator.getEndOffset(), middleSeparator.getEndOffset()) :
+                findNextSeparatorOrCRLF(rightElement);
 
             newText.append(text, lastIndex, leftSeparator.getEndOffset())
-                    .append(text, middleSeparator.getEndOffset(), rightSeparator.getStartOffset())
-                    .append(separator.getCharacter())
-                    .append(text, leftSeparator.getEndOffset(), middleSeparator.getStartOffset());
+                .append(text, middleSeparator.getEndOffset(), rightSeparator.getStartOffset())
+                .append(separator.getCharacter())
+                .append(text, leftSeparator.getEndOffset(), middleSeparator.getStartOffset());
 
             lastIndex = rightSeparator.getStartOffset();
         }
@@ -61,6 +72,7 @@ public abstract class CsvShiftColumnIntentionAction extends CsvIntentionAction {
         return newText.toString();
     }
 
+    @RequiredReadAction
     protected static TextRange findPreviousSeparatorOrCRLF(PsiElement psiElement) {
         TextRange textRange;
         PsiElement separator = CsvHelper.getPreviousSeparator(psiElement);
@@ -69,15 +81,18 @@ public abstract class CsvShiftColumnIntentionAction extends CsvIntentionAction {
             if (separator == null) {
                 separator = psiElement.getParent().getParent().getFirstChild();
                 textRange = TextRange.create(separator.getTextRange().getStartOffset(), separator.getTextRange().getStartOffset());
-            } else {
+            }
+            else {
                 textRange = separator.getTextRange();
             }
-        } else {
+        }
+        else {
             textRange = separator.getTextRange();
         }
         return textRange;
     }
 
+    @RequiredReadAction
     protected static TextRange findNextSeparatorOrCRLF(PsiElement psiElement) {
         TextRange textRange;
         PsiElement separator = CsvHelper.getNextSeparator(psiElement);
@@ -86,10 +101,12 @@ public abstract class CsvShiftColumnIntentionAction extends CsvIntentionAction {
             if (separator == null) {
                 separator = psiElement.getParent().getParent().getLastChild();
                 textRange = TextRange.create(separator.getTextRange().getEndOffset(), separator.getTextRange().getEndOffset());
-            } else {
+            }
+            else {
                 textRange = TextRange.create(separator.getTextRange().getStartOffset(), separator.getTextRange().getStartOffset());
             }
-        } else {
+        }
+        else {
             textRange = separator.getTextRange();
         }
         return textRange;
