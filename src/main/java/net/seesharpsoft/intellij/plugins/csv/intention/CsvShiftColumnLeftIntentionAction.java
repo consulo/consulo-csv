@@ -5,23 +5,23 @@ import consulo.codeEditor.Editor;
 import consulo.language.editor.intention.IntentionMetaData;
 import consulo.language.psi.PsiElement;
 import consulo.language.util.IncorrectOperationException;
+import consulo.localize.LocalizeValue;
 import consulo.project.Project;
+import jakarta.annotation.Nonnull;
 import net.seesharpsoft.intellij.plugins.csv.CsvColumnInfo;
 import net.seesharpsoft.intellij.plugins.csv.CsvColumnInfoMap;
 import net.seesharpsoft.intellij.plugins.csv.CsvHelper;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvFile;
-import org.jetbrains.annotations.NotNull;
 
 @ExtensionImpl
 @IntentionMetaData(ignoreId = "csv.CsvShiftColumnLeftIntentionAction", fileExtensions = "csv", categories = "CSV/TSV/PSV")
 public class CsvShiftColumnLeftIntentionAction extends CsvShiftColumnIntentionAction {
-
     public CsvShiftColumnLeftIntentionAction() {
-        super("Shift Column Left");
+        super(LocalizeValue.localizeTODO("Shift Column Left"));
     }
 
     @Override
-    public void invoke(@NotNull Project project, Editor editor, @NotNull final PsiElement psiElement) throws IncorrectOperationException {
+    public void invoke(@Nonnull Project project, Editor editor, @Nonnull PsiElement psiElement) throws IncorrectOperationException {
         CsvFile csvFile = (CsvFile) psiElement.getContainingFile();
 
         PsiElement element = CsvHelper.getParentFieldElement(psiElement);

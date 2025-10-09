@@ -1,5 +1,7 @@
 package net.seesharpsoft.intellij.plugins.csv.intention;
 
+import consulo.annotation.access.RequiredReadAction;
+import consulo.annotation.access.RequiredWriteAction;
 import consulo.document.Document;
 import consulo.language.psi.PsiDocumentManager;
 import consulo.language.psi.PsiElement;
@@ -7,21 +9,18 @@ import consulo.language.psi.PsiFile;
 import consulo.language.util.IncorrectOperationException;
 import consulo.logging.Logger;
 import consulo.project.Project;
+import jakarta.annotation.Nonnull;
 import net.seesharpsoft.intellij.plugins.csv.CsvHelper;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvTypes;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public final class CsvIntentionHelper {
-
     private static final Logger
-      LOG = Logger.getInstance("#net.seesharpsoft.intellij.plugins.csv.inspection.CsvIntentionHelper");
+        LOG = Logger.getInstance("#net.seesharpsoft.intellij.plugins.csv.inspection.CsvIntentionHelper");
 
+    @RequiredReadAction
     public static List<PsiElement> getChildren(final PsiElement element) {
         PsiElement currentElement = element;
         List<PsiElement> children = new ArrayList<>();
@@ -35,9 +34,10 @@ public final class CsvIntentionHelper {
         return children;
     }
 
+    @RequiredReadAction
     public static Collection<PsiElement> getAllElements(PsiFile file) {
         List<PsiElement> todo = getChildren(file);
-        Collection<PsiElement> elements = new HashSet();
+        Collection<PsiElement> elements = new HashSet<>();
         while (todo.size() > 0) {
             PsiElement current = todo.get(todo.size() - 1);
             todo.remove(todo.size() - 1);
@@ -47,15 +47,17 @@ public final class CsvIntentionHelper {
         return elements;
     }
 
+    @RequiredReadAction
     private static Collection<PsiElement> getAllFields(PsiFile file) {
         return getChildren(file).parallelStream()
-                .filter(element -> CsvHelper.getElementType(element) == CsvTypes.RECORD)
-                .flatMap(record -> getChildren(record).stream())
-                .filter(element -> CsvHelper.getElementType(element) == CsvTypes.FIELD)
-                .collect(Collectors.toList());
+            .filter(element -> CsvHelper.getElementType(element) == CsvTypes.RECORD)
+            .flatMap(record -> getChildren(record).stream())
+            .filter(element -> CsvHelper.getElementType(element) == CsvTypes.FIELD)
+            .collect(Collectors.toList());
     }
 
-    public static void quoteAll(@NotNull Project project, @NotNull PsiFile psiFile) {
+    @RequiredWriteAction
+    public static void quoteAll(@Nonnull Project project, @Nonnull PsiFile psiFile) {
         try {
             Document document = PsiDocumentManager.getInstance(project).getDocument(psiFile);
             List<Integer> quotePositions = new ArrayList<>();
@@ -66,7 +68,8 @@ public final class CsvIntentionHelper {
                     separator = CsvHelper.getPreviousSeparator(field);
                     if (separator == null) {
                         quotePositions.add(field.getParent().getTextOffset());
-                    } else {
+                    }
+                    else {
                         quotePositions.add(separator.getTextOffset() + separator.getTextLength());
                     }
                 }
@@ -74,19 +77,22 @@ public final class CsvIntentionHelper {
                     separator = CsvHelper.getNextSeparator(field);
                     if (separator == null) {
                         quotePositions.add(field.getParent().getTextOffset() + field.getParent().getTextLength());
-                    } else {
+                    }
+                    else {
                         quotePositions.add(separator.getTextOffset());
                     }
                 }
             }
             String text = addQuotes(document.getText(), quotePositions);
             document.setText(text);
-        } catch (IncorrectOperationException e) {
+        }
+        catch (IncorrectOperationException e) {
             LOG.error(e);
         }
     }
 
-    public static void unquoteAll(@NotNull Project project, @NotNull PsiFile psiFile) {
+    @RequiredWriteAction
+    public static void unquoteAll(@Nonnull Project project, @Nonnull PsiFile psiFile) {
         try {
             Document document = PsiDocumentManager.getInstance(project).getDocument(psiFile);
             List<Integer> quotePositions = new ArrayList<>();
@@ -104,12 +110,14 @@ public final class CsvIntentionHelper {
             }
             String text = removeQuotes(document.getText(), quotePositions);
             document.setText(text);
-        } catch (IncorrectOperationException e) {
+        }
+        catch (IncorrectOperationException e) {
             LOG.error(e);
         }
     }
 
-    public static void quoteValue(@NotNull Project project, @NotNull final PsiElement element) {
+    @RequiredWriteAction
+    public static void quoteValue(@Nonnull Project project, @Nonnull final PsiElement element) {
         try {
             Document document = PsiDocumentManager.getInstance(project).getDocument(element.getContainingFile());
             List<Integer> quotePositions = new ArrayList<>();
@@ -121,17 +129,20 @@ public final class CsvIntentionHelper {
             PsiElement endSeparatorElement = findQuotePositionsUntilSeparator(element, quotePositions);
             if (endSeparatorElement == null) {
                 quotePositions.add(document.getTextLength());
-            } else {
+            }
+            else {
                 quotePositions.add(endSeparatorElement.getTextOffset());
             }
             String text = addQuotes(document.getText(), quotePositions);
             document.setText(text);
-        } catch (IncorrectOperationException e) {
+        }
+        catch (IncorrectOperationException e) {
             LOG.error(e);
         }
     }
 
-    public static void unquoteValue(@NotNull Project project, @NotNull final PsiElement element) {
+    @RequiredWriteAction
+    public static void unquoteValue(@Nonnull Project project, @Nonnull final PsiElement element) {
         try {
             Document document = PsiDocumentManager.getInstance(project).getDocument(element.getContainingFile());
             List<Integer> quotePositions = new ArrayList<>();
@@ -144,7 +155,8 @@ public final class CsvIntentionHelper {
             }
             String text = removeQuotes(document.getText(), quotePositions);
             document.setText(text);
-        } catch (IncorrectOperationException e) {
+        }
+        catch (IncorrectOperationException e) {
             LOG.error(e);
         }
     }
@@ -183,6 +195,7 @@ public final class CsvIntentionHelper {
         return -1;
     }
 
+    @RequiredReadAction
     public static int getOpeningQuotePosition(PsiElement errorElement) {
         PsiElement lastFieldElement = errorElement;
         while (CsvHelper.getElementType(lastFieldElement) != CsvTypes.RECORD) {
@@ -195,22 +208,29 @@ public final class CsvIntentionHelper {
         return getOpeningQuotePosition(lastFieldElement.getFirstChild(), lastFieldElement.getLastChild());
     }
 
+    @RequiredReadAction
     public static PsiElement findQuotePositionsUntilSeparator(final PsiElement element, List<Integer> quotePositions) {
         return findQuotePositionsUntilSeparator(element, quotePositions, false);
     }
 
-    public static PsiElement findQuotePositionsUntilSeparator(final PsiElement element, List<Integer> quotePositions, boolean stopAtEscapedTexts) {
+    @RequiredReadAction
+    public static PsiElement findQuotePositionsUntilSeparator(
+        final PsiElement element,
+        List<Integer> quotePositions,
+        boolean stopAtEscapedTexts
+    ) {
         PsiElement currentElement = element;
         PsiElement separatorElement = null;
         while (separatorElement == null && currentElement != null) {
             if (CsvHelper.getElementType(currentElement) == CsvTypes.COMMA || CsvHelper.getElementType(currentElement) == CsvTypes.CRLF ||
-                    (stopAtEscapedTexts && CsvHelper.getElementType(currentElement) == CsvTypes.ESCAPED_TEXT)) {
+                (stopAtEscapedTexts && CsvHelper.getElementType(currentElement) == CsvTypes.ESCAPED_TEXT)) {
                 separatorElement = currentElement;
                 continue;
             }
             if (currentElement.getFirstChild() != null) {
                 separatorElement = findQuotePositionsUntilSeparator(currentElement.getFirstChild(), quotePositions, stopAtEscapedTexts);
-            } else if (currentElement.getText().equals("\"")) {
+            }
+            else if (currentElement.getText().equals("\"")) {
                 quotePositions.add(currentElement.getTextOffset());
             }
             currentElement = currentElement.getNextSibling();
