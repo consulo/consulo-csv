@@ -2,24 +2,23 @@ package net.seesharpsoft.intellij.plugins.csv;
 
 import consulo.annotation.component.ExtensionImpl;
 import consulo.language.Language;
-import consulo.language.lexer.Lexer;
-import consulo.language.parser.PsiParser;
-import consulo.language.file.FileViewProvider;
-import consulo.language.psi.PsiFile;
-import consulo.language.ast.TokenType;
+import consulo.language.ast.ASTNode;
 import consulo.language.ast.IFileElementType;
 import consulo.language.ast.TokenSet;
-import consulo.language.version.LanguageVersion;
-import consulo.language.ast.ASTNode;
+import consulo.language.ast.TokenType;
+import consulo.language.file.FileViewProvider;
+import consulo.language.lexer.Lexer;
+import consulo.language.parser.PsiParser;
 import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.version.LanguageVersion;
+import jakarta.annotation.Nonnull;
 import net.seesharpsoft.intellij.lang.FileParserDefinition;
 import net.seesharpsoft.intellij.plugins.csv.parser.CsvParser;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvFile;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvFileElementType;
-import net.seesharpsoft.intellij.plugins.csv.psi.CsvTypes;
+import net.seesharpsoft.intellij.plugins.csv.psi.impl.CsvTypesFactory;
 import org.jetbrains.annotations.NotNull;
-
-import jakarta.annotation.Nonnull;
 
 @ExtensionImpl
 public class CsvParserDefinition implements FileParserDefinition {
@@ -76,7 +75,7 @@ public class CsvParserDefinition implements FileParserDefinition {
     @Override
     @NotNull
     public PsiElement createElement(ASTNode node) {
-        return CsvTypes.Factory.createElement(node);
+        return CsvTypesFactory.createElement(node);
     }
 
     @Override

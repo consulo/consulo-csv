@@ -1,7 +1,6 @@
 {
   parserClass="net.seesharpsoft.intellij.plugins.csv.parser.CsvParser"
 
-  version = "3"
   extends="consulo.language.impl.psi.ASTWrapperPsiElement"
 
   psiClassPrefix="Csv"
