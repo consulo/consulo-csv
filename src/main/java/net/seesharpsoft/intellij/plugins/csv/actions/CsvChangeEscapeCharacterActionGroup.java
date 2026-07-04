@@ -5,12 +5,13 @@ import consulo.ui.ex.action.ActionGroup;
 import consulo.language.editor.CommonDataKeys;
 import consulo.ui.ex.action.AnAction;
 import consulo.ui.ex.action.AnActionEvent;
+import consulo.ui.ex.action.AnActionWithSyncUpdate;
 import net.seesharpsoft.intellij.plugins.csv.CsvEscapeCharacter;
 import net.seesharpsoft.intellij.plugins.csv.CsvHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class CsvChangeEscapeCharacterActionGroup extends ActionGroup {
+public class CsvChangeEscapeCharacterActionGroup extends ActionGroup implements AnActionWithSyncUpdate {
 
     private static final AnAction[] CSV_ESCAPE_CHARACTER_CHANGE_ACTIONS;
 

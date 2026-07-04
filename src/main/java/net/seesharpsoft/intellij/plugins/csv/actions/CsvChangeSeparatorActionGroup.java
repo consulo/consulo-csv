@@ -6,13 +6,14 @@ import consulo.language.psi.PsiFile;
 import consulo.ui.ex.action.ActionGroup;
 import consulo.ui.ex.action.AnAction;
 import consulo.ui.ex.action.AnActionEvent;
+import consulo.ui.ex.action.AnActionWithSyncUpdate;
 import net.seesharpsoft.intellij.plugins.csv.CsvHelper;
 import net.seesharpsoft.intellij.plugins.csv.CsvSeparatorHolder;
 import net.seesharpsoft.intellij.plugins.csv.CsvValueSeparator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class CsvChangeSeparatorActionGroup extends ActionGroup {
+public class CsvChangeSeparatorActionGroup extends ActionGroup implements AnActionWithSyncUpdate {
 
     private static final AnAction[] CSV_SEPARATOR_CHANGE_ACTIONS;
 
