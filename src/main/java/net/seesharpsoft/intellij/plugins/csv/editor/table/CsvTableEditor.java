@@ -17,6 +17,7 @@ import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiFile;
 import consulo.project.Project;
 import consulo.ui.ex.awt.UIUtil;
+import consulo.ui.ex.awtUnsafe.TargetAWT;
 import consulo.undoRedo.CommandProcessor;
 import consulo.util.collection.ArrayUtil;
 import consulo.util.dataholder.Key;
@@ -345,7 +346,7 @@ public abstract class CsvTableEditor implements FileEditor, FileEditorLocation {
     }
 
     public Font getFont() {
-        return UIUtil.getFontWithFallback(EditorColorsManager.getInstance().getGlobalScheme().getFont(EditorFontType.PLAIN));
+        return UIUtil.getFontWithFallback(TargetAWT.to(EditorColorsManager.getInstance().getGlobalScheme().getFont(EditorFontType.PLAIN)));
     }
 
     protected int getStringWidth(String text) {

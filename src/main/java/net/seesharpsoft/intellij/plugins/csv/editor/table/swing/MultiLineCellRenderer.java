@@ -130,7 +130,7 @@ public class MultiLineCellRenderer extends JBScrollPane implements TableCellRend
     }
 
     protected Font determineFont(@NotNull String text) {
-        Font finalFont = UIUtil.getFontWithFallback(EditorColorsManager.getInstance().getGlobalScheme().getFont(EditorFontType.PLAIN));
+        Font finalFont = UIUtil.getFontWithFallback(TargetAWT.to(EditorColorsManager.getInstance().getGlobalScheme().getFont(EditorFontType.PLAIN)));
         return UIUtil.getFontWithFallbackIfNeeded(finalFont, text);
     }
 
