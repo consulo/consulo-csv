@@ -16,6 +16,7 @@ import consulo.language.psi.PsiDocumentManager;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiFile;
 import consulo.project.Project;
+import consulo.ui.Component;
 import consulo.ui.ex.awt.UIUtil;
 import consulo.ui.ex.awtUnsafe.TargetAWT;
 import consulo.undoRedo.CommandProcessor;
@@ -182,6 +183,16 @@ public abstract class CsvTableEditor implements FileEditor, FileEditorLocation {
             }
         }
         return result.toString();
+    }
+
+    @Override
+    public Component getUIComponent() {
+        return TargetAWT.wrap(getComponent());
+    }
+
+    @Override
+    public @Nullable Component getPreferredFocusedUIComponent() {
+        return TargetAWT.wrap(getPreferredFocusedComponent());
     }
 
     @NotNull
