@@ -8,6 +8,8 @@ import consulo.configurable.StandardConfigurableIds;
 import consulo.disposer.Disposable;
 import consulo.localize.LocalizeValue;
 import consulo.ui.ex.awt.ComboBox;
+import consulo.ui.ex.awtUnsafe.TargetAWT;
+import consulo.ui.style.StandardColors;
 import net.seesharpsoft.intellij.plugins.csv.CsvEscapeCharacter;
 import net.seesharpsoft.intellij.plugins.csv.CsvValueSeparator;
 import net.seesharpsoft.intellij.ui.CustomDisplayListCellRenderer;
@@ -122,7 +124,7 @@ public class CsvEditorSettingsProvider implements ApplicationConfigurable {
         cbShowInfoBalloonCheckBox.setSelected(csvEditorSettings.isShowInfoBalloon());
         cbShowInfoPanel.setSelected(csvEditorSettings.showTableEditorInfoPanel());
         cbTabHighlightColor.setSelected(csvEditorSettings.isHighlightTabSeparator());
-        cbTabHighlightColor.setColor(csvEditorSettings.getTabHighlightColor());
+        cbTabHighlightColor.setColor(TargetAWT.from(csvEditorSettings.getTabHighlightColor()));
         cbRowHeight.setSelectedIndex(csvEditorSettings.getTableEditorRowHeight());
         cbEditorUsage.setSelectedIndex(csvEditorSettings.getEditorPrio().ordinal());
         cbQuotingEnforced.setSelected(csvEditorSettings.isQuotingEnforced());
@@ -148,7 +150,7 @@ public class CsvEditorSettingsProvider implements ApplicationConfigurable {
         csvEditorSettings.setShowInfoBalloon(cbShowInfoBalloonCheckBox.isSelected());
         csvEditorSettings.showTableEditorInfoPanel(cbShowInfoPanel.isSelected());
         csvEditorSettings.setHighlightTabSeparator(cbTabHighlightColor.isSelected());
-        csvEditorSettings.setTabHighlightColor(cbTabHighlightColor.getColor());
+        csvEditorSettings.setTabHighlightColor(TargetAWT.to(cbTabHighlightColor.getColor()));
         csvEditorSettings.setTableEditorRowHeight(cbRowHeight.getSelectedIndex());
         csvEditorSettings.setEditorPrio(CsvEditorSettings.EditorPrio.values()[cbEditorUsage.getSelectedIndex()]);
         csvEditorSettings.setQuotingEnforced(cbQuotingEnforced.isSelected());
@@ -181,7 +183,7 @@ public class CsvEditorSettingsProvider implements ApplicationConfigurable {
         comboValueColoring.setRenderer(new CustomDisplayListCellRenderer<CsvEditorSettings.ValueColoring>(ec -> ec.getDisplay()));
 
         cbTabHighlightColor = new CheckBoxWithColorChooser("Highlight tab separator   ");
-        cbTabHighlightColor.setColor(Color.CYAN);
+        cbTabHighlightColor.setColor(StandardColors.CYAN);
 
         NumberFormat numberFormat = NumberFormat.getIntegerInstance();
         NumberFormatter numberFormatter = new NumberFormatter(numberFormat);

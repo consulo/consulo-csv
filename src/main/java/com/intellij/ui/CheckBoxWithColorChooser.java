@@ -2,8 +2,14 @@
 package com.intellij.ui;
 
 import consulo.application.util.SystemInfo;
+import consulo.localize.LocalizeValue;
+import consulo.ui.ColorBox;
+import consulo.ui.ColorPickerBuilder;
+import consulo.ui.color.ColorValue;
 import consulo.ui.ex.awt.ClickListener;
-import consulo.ui.ex.awt.ColorChooser;
+import consulo.ui.ex.awt.UIUtil;
+import consulo.ui.ex.awtUnsafe.TargetAWT;
+import consulo.ui.style.StandardColors;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -14,19 +20,19 @@ import java.awt.event.MouseEvent;
  * @author Konstantin Bulenkov
  */
 public class CheckBoxWithColorChooser extends JPanel {
-    private Color myColor;
+    private ColorBox myColorSelectedBox;
     private final JCheckBox myCheckbox;
 
-    public CheckBoxWithColorChooser(String text, boolean selected, Color color) {
+    public CheckBoxWithColorChooser(String text, boolean selected, ColorValue color) {
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-        myColor = color;
         myCheckbox = new JCheckBox(text, selected);
         add(myCheckbox);
-        add(new MyColorButton());
+        myColorSelectedBox = ColorBox.create(color);
+        add(TargetAWT.to(myColorSelectedBox));
     }
 
     public CheckBoxWithColorChooser(String text, boolean selected) {
-        this(text, selected, Color.WHITE);
+        this(text, selected, StandardColors.WHITE);
     }
 
     public CheckBoxWithColorChooser(String text) {
@@ -37,68 +43,19 @@ public class CheckBoxWithColorChooser extends JPanel {
         myCheckbox.setMnemonic(c);
     }
 
-    public Color getColor() {
-        return myColor;
+    public ColorValue getColor() {
+        return myColorSelectedBox.getBackgroundColor();
     }
 
-    public void setColor(Color color) {
-        myColor = color;
+    public void setColor(ColorValue color) {
+        myColorSelectedBox.setValue(color);
     }
 
     public void setSelected(boolean selected) {
         myCheckbox.setSelected(selected);
     }
 
-
     public boolean isSelected() {
         return myCheckbox.isSelected();
-    }
-
-    private class MyColorButton extends JButton {
-        MyColorButton() {
-            setMargin(new Insets(0, 0, 0, 0));
-            setDefaultCapable(false);
-            setFocusable(false);
-            if (SystemInfo.isMac) {
-                putClientProperty("JButton.buttonType", "square");
-            }
-
-            new ClickListener() {
-                @Override
-                public boolean onClick(@NotNull MouseEvent e, int clickCount) {
-                    if (myCheckbox.isSelected()) {
-                        ColorChooser.chooseColor(myCheckbox, "Choose color", CheckBoxWithColorChooser.this.myColor, color -> {
-                            if (color != null) {
-                                myColor = color;
-                            }
-                        });
-                    }
-                    return true;
-                }
-            }.installOn(this);
-        }
-
-        @Override
-        public void paint(Graphics g) {
-            final Color color = g.getColor();
-            g.setColor(myColor);
-            g.fillRect(0, 0, getWidth(), getHeight());
-            g.setColor(color);
-        }
-
-        @Override
-        public Dimension getMinimumSize() {
-            return getPreferredSize();
-        }
-
-        @Override
-        public Dimension getMaximumSize() {
-            return getPreferredSize();
-        }
-
-        @Override
-        public Dimension getPreferredSize() {
-            return new Dimension(12, 12);
-        }
     }
 }
