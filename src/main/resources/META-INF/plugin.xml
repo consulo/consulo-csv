@@ -50,67 +50,26 @@
     </tags>
 
     <actions>
-        <group id="CsvTableEditorColumnContextMenu"
-               popup="true"
-        >
-            <separator />
-        </group>
         <group id="CsvTableEditorRowContextMenu"
                popup="true"
         >
+            <reference ref="Console.TableResult.PopupGroup" />
             <separator />
         </group>
-        <action class="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddColumnBefore"
-                id="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddColumnBefore"
-                text="New column before (Ctrl+Left)"
-                icon="consulo.csv.CsvIconGroup@add_column_before"
+        <group id="CsvTableEditorColumnContextMenu"
+               popup="true"
         >
-            <add-to-group group-id="CsvTableEditorColumnContextMenu" anchor="first" />
-        </action>
-        <action class="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddColumnAfter"
-                id="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddColumnAfter"
-                text="New column after (Ctrl+Right)"
-                icon="consulo.csv.CsvIconGroup@add_column"
-        >
-            <add-to-group group-id="CsvTableEditorColumnContextMenu" relative-to-action="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddColumnBefore" anchor="after" />
-        </action>
-        <action class="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$DeleteSelectedColumns"
-                id="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$DeleteSelectedColumns"
-                text="Delete selected column (Ctrl+Shift+Del)"
-                icon="consulo.csv.CsvIconGroup@remove_column"
-        >
-            <add-to-group group-id="CsvTableEditorColumnContextMenu" relative-to-action="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddColumnAfter" anchor="after" />
-        </action>
-
-        <action class="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddRowBefore"
-                id="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddRowBefore"
-                text="New row before (Ctrl+Up)"
-                icon="consulo.csv.CsvIconGroup@add_row_before"
-        >
-            <add-to-group group-id="CsvTableEditorRowContextMenu" anchor="first" />
-        </action>
-        <action class="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddRowAfter"
-                id="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddRowAfter"
-                text="New row after (Ctrl+Down)"
-                icon="consulo.csv.CsvIconGroup@add_row"
-        >
-            <add-to-group group-id="CsvTableEditorRowContextMenu" relative-to-action="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddRowBefore" anchor="after" />
-        </action>
-        <action class="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$DeleteSelectedRows"
-                id="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$DeleteSelectedRows"
-                text="Delete selected rows (Ctrl+Del)"
-                icon="consulo.csv.CsvIconGroup@remove_row"
-        >
-            <add-to-group group-id="CsvTableEditorRowContextMenu" relative-to-action="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AddRowAfter" anchor="after" />
-        </action>
+            <reference ref="Console.TableResult.ColumnHeaderPopup" />
+            <separator />
+        </group>
 
         <action class="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AdjustColumnWidths"
                 id="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$AdjustColumnWidths"
                 text="Adjust column widths"
                 icon="consulo.csv.CsvIconGroup@adjust_column_width"
         >
-            <add-to-group group-id="CsvTableEditorColumnContextMenu" />
-            <add-to-group group-id="CsvTableEditorRowContextMenu" />
+            <add-to-group group-id="CsvTableEditorColumnContextMenu" anchor="last" />
+            <add-to-group group-id="CsvTableEditorRowContextMenu" anchor="last" />
         </action>
         <action class="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$ResetColumnWidths"
                 id="net.seesharpsoft.intellij.plugins.csv.actions.CsvTableEditorActions$ResetColumnWidths"

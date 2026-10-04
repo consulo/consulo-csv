@@ -12,6 +12,7 @@ open module net.seesharpsoft.intellij.plugins.csv {
     requires consulo.disposer.api;
     requires consulo.document.api;
     requires consulo.file.editor.api;
+    requires consulo.grid.editor.api;
     requires consulo.ide.api;
     requires consulo.language.api;
     requires consulo.language.code.style.api;

@@ -14,14 +14,25 @@ public class CsvLexerFactory {
         return INSTANCE;
     }
 
-    protected Lexer createLexer(@NotNull CsvValueSeparator separator, @NotNull CsvEscapeCharacter escapeCharacter) {
-        if (separator.requiresCustomLexer() || !CsvEditorSettings.getInstance().getCommentIndicator().isEmpty()) {
+    public Lexer createLexer(@NotNull CsvValueSeparator separator, @NotNull CsvEscapeCharacter escapeCharacter) {
+        return createLexer(separator, escapeCharacter, CsvEditorSettings.getInstance().getCommentIndicator());
+    }
+
+    /**
+     * Creates the lexer for the given comment indicator, without reading any settings - so it may be called on any thread.
+     *
+     * @param commentIndicator the text which starts a comment line, or an empty text for no comments
+     */
+    public Lexer createLexer(@NotNull CsvValueSeparator separator,
+                             @NotNull CsvEscapeCharacter escapeCharacter,
+                             @NotNull String commentIndicator) {
+        if (separator.requiresCustomLexer() || !commentIndicator.isEmpty()) {
             return new CsvSharpLexer(new CsvSharpLexer.Configuration(
                     separator.getCharacter(),
                     "\n",
                     escapeCharacter.getCharacter(),
                     "\"",
-                    CsvEditorSettings.getInstance().getCommentIndicator()));
+                    commentIndicator));
         }
         return new CsvLexerAdapter(separator, escapeCharacter);
     }

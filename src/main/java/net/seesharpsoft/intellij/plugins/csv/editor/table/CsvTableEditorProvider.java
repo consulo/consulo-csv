@@ -1,23 +1,42 @@
+/*
+ * Copyright 2013-2026 consulo.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package net.seesharpsoft.intellij.plugins.csv.editor.table;
 
 import consulo.annotation.component.ExtensionImpl;
+import consulo.application.dumb.DumbAware;
 import consulo.fileEditor.AsyncFileEditorProvider;
 import consulo.fileEditor.FileEditor;
 import consulo.fileEditor.FileEditorPolicy;
 import consulo.fileEditor.FileEditorState;
-import consulo.application.dumb.DumbAware;
-import consulo.project.Project;
 import consulo.language.impl.file.SingleRootFileViewProvider;
+import consulo.project.Project;
+import consulo.ui.annotation.RequiredUIAccess;
 import consulo.virtualFileSystem.VirtualFile;
 import net.seesharpsoft.intellij.plugins.csv.CsvHelper;
 import net.seesharpsoft.intellij.plugins.csv.settings.CsvEditorSettings;
-import net.seesharpsoft.intellij.plugins.csv.editor.table.swing.CsvTableEditorSwing;
 import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
 
+/**
+ * The "Table Editor" of CSV files, next to the text editor. Which of the two comes first, and whether the table is offered at all,
+ * follows the editor usage setting.
+ *
+ * @since 2026-10-04
+ */
 @ExtensionImpl
 public class CsvTableEditorProvider implements AsyncFileEditorProvider, DumbAware {
-
     public static final String EDITOR_TYPE_ID = "csv-table-editor";
 
     @Override
@@ -27,51 +46,43 @@ public class CsvTableEditorProvider implements AsyncFileEditorProvider, DumbAwar
 
     @Override
     public FileEditorPolicy getPolicy() {
-        switch (CsvEditorSettings.getInstance().getEditorPrio()) {
-            case TEXT_FIRST:
-            case TEXT_ONLY:
-                return FileEditorPolicy.PLACE_AFTER_DEFAULT_EDITOR;
-            case TABLE_FIRST:
-                return FileEditorPolicy.HIDE_DEFAULT_EDITOR;
-            default:
-                throw new IllegalArgumentException("unhandled EditorPrio: " + CsvEditorSettings.getInstance().getEditorPrio());
-        }
+        return switch (CsvEditorSettings.getInstance().getEditorPrio()) {
+            case TEXT_FIRST, TEXT_ONLY -> FileEditorPolicy.PLACE_AFTER_DEFAULT_EDITOR;
+            case TABLE_FIRST -> FileEditorPolicy.HIDE_DEFAULT_EDITOR;
+        };
     }
 
     @Override
-    public boolean accept(@NotNull Project project, @NotNull VirtualFile file) {
-        return CsvEditorSettings.getInstance().getEditorPrio() != CsvEditorSettings.EditorPrio.TEXT_ONLY &&
-                CsvHelper.isCsvFile(project, file) &&
-                !SingleRootFileViewProvider.isTooLargeForIntelligence(file);
-    }
-
-    @NotNull
-    @Override
-    public FileEditor createEditor(@NotNull Project project, @NotNull VirtualFile virtualFile) {
-        return createEditorAsync(project, virtualFile).build();
+    public boolean accept(Project project, VirtualFile file) {
+        return CsvEditorSettings.getInstance().getEditorPrio() != CsvEditorSettings.EditorPrio.TEXT_ONLY
+            && CsvHelper.isCsvFile(project, file)
+            && !SingleRootFileViewProvider.isTooLargeForIntelligence(file);
     }
 
     @Override
-    public FileEditorState readState(@NotNull Element sourceElement, @NotNull Project project, @NotNull VirtualFile file) {
+    @RequiredUIAccess
+    public FileEditor createEditor(Project project, VirtualFile file) {
+        return createEditorAsync(project, file).build();
+    }
+
+    @Override
+    public FileEditorState readState(Element sourceElement, Project project, VirtualFile file) {
         return CsvTableEditorState.create(sourceElement, project, file);
     }
 
     @Override
-    public void writeState(@NotNull FileEditorState state, @NotNull Project project, @NotNull Element targetElement) {
-        if (!(state instanceof CsvTableEditorState)) {
-            return;
+    public void writeState(FileEditorState state, Project project, Element targetElement) {
+        if (state instanceof CsvTableEditorState tableEditorState) {
+            tableEditorState.write(project, targetElement);
         }
-        CsvTableEditorState csvTableEditorState = (CsvTableEditorState) state;
-        csvTableEditorState.write(project, targetElement);
     }
 
-    @NotNull
     @Override
-    public Builder createEditorAsync(@NotNull Project project, @NotNull VirtualFile virtualFile) {
+    public Builder createEditorAsync(Project project, VirtualFile file) {
         return new Builder() {
             @Override
             public FileEditor build() {
-                return new CsvTableEditorSwing(project, virtualFile);
+                return new CsvTableEditor(project, file);
             }
         };
     }

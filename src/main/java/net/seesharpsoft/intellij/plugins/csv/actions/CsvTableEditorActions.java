@@ -1,80 +1,71 @@
+/*
+ * Copyright 2013-2026 consulo.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package net.seesharpsoft.intellij.plugins.csv.actions;
 
+import consulo.application.dumb.DumbAware;
 import consulo.fileEditor.FileEditor;
+import consulo.ui.annotation.RequiredUIAccess;
 import consulo.ui.ex.action.AnAction;
 import consulo.ui.ex.action.AnActionEvent;
-import consulo.language.editor.PlatformDataKeys;
+import consulo.ui.ex.action.AnActionWithSyncUpdate;
 import net.seesharpsoft.intellij.plugins.csv.editor.table.CsvTableEditor;
-import net.seesharpsoft.intellij.plugins.csv.editor.table.api.TableActions;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
-public abstract class CsvTableEditorActions extends AnAction {
-
-    public static class AddRowBefore extends CsvTableEditorActions {
-        @Override
-        public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
-            getTableActions(anActionEvent).addRow(getTableEditor(anActionEvent), true);
-        }
-    }
-
-    public static class AddRowAfter extends CsvTableEditorActions {
-        @Override
-        public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
-            getTableActions(anActionEvent).addRow(getTableEditor(anActionEvent), false);
-        }
-    }
-
-    public static class AddColumnBefore extends CsvTableEditorActions {
-        @Override
-        public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
-            getTableActions(anActionEvent).addColumn(getTableEditor(anActionEvent), true);
-        }
-    }
-
-    public static class AddColumnAfter extends CsvTableEditorActions {
-        @Override
-        public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
-            getTableActions(anActionEvent).addColumn(getTableEditor(anActionEvent), false);
-        }
-    }
-
-    public static class DeleteSelectedRows extends CsvTableEditorActions {
-        @Override
-        public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
-            getTableActions(anActionEvent).deleteSelectedRows(getTableEditor(anActionEvent));
-        }
-    }
-
-    public static class DeleteSelectedColumns extends CsvTableEditorActions {
-        @Override
-        public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
-            getTableActions(anActionEvent).deleteSelectedColumns(getTableEditor(anActionEvent));
-        }
-    }
-
+/**
+ * The column width actions of the table editor. The row and column actions of its context menus are the grid's own.
+ *
+ * @since 2026-10-04
+ */
+@NullMarked
+public abstract class CsvTableEditorActions extends AnAction implements DumbAware, AnActionWithSyncUpdate {
+    /**
+     * Fits every column to its content, up to the maximum column width setting.
+     */
     public static class AdjustColumnWidths extends CsvTableEditorActions {
         @Override
-        public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
-            getTableActions(anActionEvent).adjustColumnWidths(getTableEditor(anActionEvent));
+        @RequiredUIAccess
+        public void actionPerformed(AnActionEvent e) {
+            CsvTableEditor editor = getTableEditor(e);
+            if (editor != null) {
+                editor.adjustColumnWidths();
+            }
         }
     }
 
+    /**
+     * Gives every column the default column width setting.
+     */
     public static class ResetColumnWidths extends CsvTableEditorActions {
         @Override
-        public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
-            getTableActions(anActionEvent).resetColumnWidths(getTableEditor(anActionEvent));
+        @RequiredUIAccess
+        public void actionPerformed(AnActionEvent e) {
+            CsvTableEditor editor = getTableEditor(e);
+            if (editor != null) {
+                editor.resetColumnWidths();
+            }
         }
     }
 
-    public static CsvTableEditor getTableEditor(@NotNull AnActionEvent anActionEvent) {
-        FileEditor fileEditor = anActionEvent.getData(PlatformDataKeys.FILE_EDITOR);
-        if (!(fileEditor instanceof CsvTableEditor)) {
-            return null;
-        }
-        return (CsvTableEditor) fileEditor;
+    @Override
+    public void update(AnActionEvent e) {
+        e.getPresentation().setEnabledAndVisible(getTableEditor(e) != null);
     }
 
-    public static TableActions getTableActions(@NotNull AnActionEvent anActionEvent) {
-        return getTableEditor(anActionEvent).getActions();
+    public static @Nullable CsvTableEditor getTableEditor(AnActionEvent e) {
+        return e.getData(FileEditor.KEY) instanceof CsvTableEditor editor ? editor : null;
     }
 }

@@ -35,7 +35,6 @@ public class CsvEditorSettingsProvider implements ApplicationConfigurable {
     private JCheckBox cbUseSoftWraps;
     private CheckBoxWithColorChooser cbTabHighlightColor;
     private JCheckBox cbShowInfoBalloonCheckBox;
-    private JCheckBox cbShowInfoPanel;
     private JComboBox cbRowHeight;
     private JComboBox cbEditorUsage;
     private JCheckBox cbQuotingEnforced;
@@ -95,7 +94,6 @@ public class CsvEditorSettingsProvider implements ApplicationConfigurable {
         return isModified(cbCaretRowShown, csvEditorSettings.isCaretRowShown()) ||
                 isModified(cbUseSoftWraps, csvEditorSettings.isUseSoftWraps()) ||
                 isModified(cbShowInfoBalloonCheckBox, csvEditorSettings.isShowInfoBalloon()) ||
-                isModified(cbShowInfoPanel, csvEditorSettings.showTableEditorInfoPanel()) ||
                 cbTabHighlightColor.isSelected() != csvEditorSettings.isHighlightTabSeparator() ||
                 !Objects.equals(cbTabHighlightColor.getColor(), csvEditorSettings.getTabHighlightColor()) ||
                 !Objects.equals(cbRowHeight.getSelectedIndex(), csvEditorSettings.getTableEditorRowHeight()) ||
@@ -122,7 +120,6 @@ public class CsvEditorSettingsProvider implements ApplicationConfigurable {
         cbCaretRowShown.setSelected(csvEditorSettings.isCaretRowShown());
         cbUseSoftWraps.setSelected(csvEditorSettings.isUseSoftWraps());
         cbShowInfoBalloonCheckBox.setSelected(csvEditorSettings.isShowInfoBalloon());
-        cbShowInfoPanel.setSelected(csvEditorSettings.showTableEditorInfoPanel());
         cbTabHighlightColor.setSelected(csvEditorSettings.isHighlightTabSeparator());
         cbTabHighlightColor.setColor(TargetAWT.from(csvEditorSettings.getTabHighlightColor()));
         cbRowHeight.setSelectedIndex(csvEditorSettings.getTableEditorRowHeight());
@@ -148,7 +145,6 @@ public class CsvEditorSettingsProvider implements ApplicationConfigurable {
         csvEditorSettings.setCaretRowShown(cbCaretRowShown.isSelected());
         csvEditorSettings.setUseSoftWraps(cbUseSoftWraps.isSelected());
         csvEditorSettings.setShowInfoBalloon(cbShowInfoBalloonCheckBox.isSelected());
-        csvEditorSettings.showTableEditorInfoPanel(cbShowInfoPanel.isSelected());
         csvEditorSettings.setHighlightTabSeparator(cbTabHighlightColor.isSelected());
         csvEditorSettings.setTabHighlightColor(TargetAWT.to(cbTabHighlightColor.getColor()));
         csvEditorSettings.setTableEditorRowHeight(cbRowHeight.getSelectedIndex());
