@@ -1,5 +1,6 @@
 package net.seesharpsoft.intellij.plugins.csv.structureview;
 
+import consulo.annotation.access.RequiredReadAction;
 import consulo.fileEditor.structureView.StructureViewTreeElement;
 import consulo.fileEditor.structureView.tree.SortableTreeElement;
 import consulo.fileEditor.structureView.tree.TreeElement;
@@ -7,6 +8,7 @@ import consulo.language.icon.IconDescriptorUpdaters;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiFile;
 import consulo.language.psi.PsiNamedElement;
+import consulo.localize.LocalizeValue;
 import consulo.navigation.ItemPresentation;
 import consulo.navigation.NavigationItem;
 import consulo.ui.image.Image;
@@ -17,7 +19,7 @@ import net.seesharpsoft.intellij.plugins.csv.CsvIconProvider;
 import net.seesharpsoft.intellij.plugins.csv.psi.CsvFile;
 import net.seesharpsoft.intellij.plugins.csv.settings.CsvEditorSettings;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
@@ -38,51 +40,53 @@ public abstract class CsvStructureViewElement implements StructureViewTreeElemen
     }
 
     @Override
+    @RequiredReadAction
     public void navigate(boolean requestFocus) {
-        if (myElement instanceof NavigationItem) {
-            ((NavigationItem) myElement).navigate(requestFocus);
+        if (myElement instanceof NavigationItem navItem) {
+            navItem.navigate(requestFocus);
         }
     }
 
     @Override
+    @RequiredReadAction
     public boolean canNavigate() {
-        return myElement instanceof NavigationItem &&
-                ((NavigationItem) myElement).canNavigate();
+        return myElement instanceof NavigationItem navItem && navItem.canNavigate();
     }
 
     @Override
+    @RequiredReadAction
     public boolean canNavigateToSource() {
-        return myElement instanceof NavigationItem &&
-                ((NavigationItem) myElement).canNavigateToSource();
+        return myElement instanceof NavigationItem navItem && navItem.canNavigateToSource();
     }
 
     @Override
+    @RequiredReadAction
     public String getAlphaSortKey() {
-        return myElement instanceof PsiNamedElement ? ((PsiNamedElement) myElement).getName() : null;
+        return myElement instanceof PsiNamedElement namedElem ? namedElem.getName() : null;
     }
 
     @Override
     public ItemPresentation getPresentation() {
-        ItemPresentation presentation = myElement instanceof NavigationItem ?
-                ((NavigationItem) myElement).getPresentation() : this;
+        ItemPresentation presentation = myElement instanceof NavigationItem navItem
+            ? navItem.getPresentation() : this;
         return presentation == null ? this : presentation;
     }
 
-    @Nullable
+
     @Override
-    public String getPresentableText() {
-        return myElement.getText();
+    @RequiredReadAction
+    public LocalizeValue getPresentableText() {
+        return LocalizeValue.of(myElement.getText());
     }
 
-    @Nullable
     @Override
-    public String getLocationString() {
+    public @Nullable String getLocationString() {
         return null;
     }
 
-    @Nullable
     @Override
-    public Image getIcon(boolean unused) {
+    @RequiredReadAction
+    public @Nullable Image getIcon(boolean unused) {
         return IconDescriptorUpdaters.getIcon(myElement, ICON_FLAG_VISIBILITY);
     }
 
@@ -97,8 +101,7 @@ public abstract class CsvStructureViewElement implements StructureViewTreeElemen
 
         @Override
         public TreeElement[] getChildren() {
-            if (myElement instanceof CsvFile) {
-                CsvFile csvFile = (CsvFile) myElement;
+            if (myElement instanceof CsvFile csvFile) {
                 CsvColumnInfoMap csvColumnInfoMap = csvFile.getColumnInfoMap();
                 int maxRowNumbers = csvColumnInfoMap.getColumnInfo(0).getSize();
                 if (csvColumnInfoMap.hasEmptyLastLine() && CsvEditorSettings.getInstance().isFileEndLineBreak()) {
@@ -147,15 +150,13 @@ public abstract class CsvStructureViewElement implements StructureViewTreeElemen
             return children;
         }
 
-        @Nullable
         @Override
-        public String getLocationString() {
+        public @Nullable String getLocationString() {
             return String.format("Header (%s entries)", getNumberOfChildren());
         }
 
-        @Nullable
         @Override
-        public Image getIcon(boolean unused) {
+        public @Nullable Image getIcon(boolean unused) {
             return CsvIconProvider.HEADER;
         }
     }
@@ -174,9 +175,8 @@ public abstract class CsvStructureViewElement implements StructureViewTreeElemen
             return EMPTY_ARRAY;
         }
 
-        @Nullable
         @Override
-        public String getLocationString() {
+        public @Nullable String getLocationString() {
             return String.format("(%s)", myRowIndex + 1);
         }
     }
