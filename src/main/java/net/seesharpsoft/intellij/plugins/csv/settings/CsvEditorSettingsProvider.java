@@ -7,6 +7,7 @@ import consulo.configurable.ConfigurationException;
 import consulo.configurable.StandardConfigurableIds;
 import consulo.disposer.Disposable;
 import consulo.localize.LocalizeValue;
+import consulo.ui.Component;
 import consulo.ui.ex.awt.ComboBox;
 import consulo.ui.ex.awtUnsafe.TargetAWT;
 import consulo.ui.style.StandardColors;
@@ -75,8 +76,8 @@ public class CsvEditorSettingsProvider implements ApplicationConfigurable {
 
     @Nullable
     @Override
-    public JComponent createComponent(Disposable uiDisposable) {
-        return myMainPanel;
+    public Component createUIComponent(Disposable uiDisposable) {
+        return TargetAWT.wrap(myMainPanel);
     }
 
     // ensure downward compatibility
